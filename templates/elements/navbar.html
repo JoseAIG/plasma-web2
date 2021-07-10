@@ -1,0 +1,13 @@
+{% macro navbar() -%} 
+    <nav class="navbar navbar-light bg-light">
+        <div>
+            <img src="../static/assets/icons/plasma-ball.svg" alt="d" class="w-25">
+            <h1 class="d-inline align-middle">Plasma</h1>
+        </div>
+        <div style="position: absolute; right: 1em;">
+            <button onclick="location.href='/login'">Ingresar</button>
+            &nbsp;
+            <button onclick="location.href='/registro'">Registrarse</button>
+        </div>
+    </nav>
+{% endmacro -%}

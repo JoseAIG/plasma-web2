@@ -1,0 +1,38 @@
+/* BODY CON ANIMACION DE FONDO GRADIENTE */
+body{
+    height: 100vh;
+    background: linear-gradient(120deg, #d1c4e9, #673ab7, #311b92, #b388ff, #7c4dff);
+    background-size: 1000% 1000%;
+
+    -webkit-animation: AnimationName 50s ease infinite;
+    animation: AnimationName 50s ease infinite;
+}
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 17%}
+    50%{background-position:100% 84%}
+    100%{background-position:0% 17%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 17%}
+    50%{background-position:100% 84%}
+    100%{background-position:0% 17%}
+}
+
+/* BARRA DE NAVEGACION SUPERIOR */
+nav{
+    background-color: #f5f5f5;
+    /* border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px; */
+}
+
+/* ESTILO DE BOTONES */
+button{
+    border: none;
+    padding: 1em;
+    border-radius: 10px;
+    background-color: #eeeeee;
+    transition: background-color 1s;
+}
+button:hover{
+    background-color: #e0e0e0;
+}

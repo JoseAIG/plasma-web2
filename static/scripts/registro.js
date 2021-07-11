@@ -22,6 +22,12 @@ boton_registro.onclick = () => {
     }
     //SI TODAS LAS COMPROBACIONES SON CORRECTAS, REALIZAR LA SOLICITUD AL SERVIDOR
     else{
-        fetch_wrapper.post("/registro",datos_form_registro).then(data => console.log(data))
+        fetch_wrapper.post("registro",datos_form_registro)
+        .then(data => {
+            alert(data.resultado);
+            if(data.status == 200){
+                window.open("/","_self");
+            }
+        })
     }
 }

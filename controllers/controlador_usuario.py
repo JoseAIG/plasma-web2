@@ -1,3 +1,4 @@
+from flask import session
 import bcrypt
 from app import db
 from models.usuario import Usuario
@@ -24,6 +25,9 @@ def verificar_credenciales(request):
         # DE EXISTIR EL USUARIO EN LA BASE DE DATOS COMPROBAR LA CLAVE INGRESADA CON SU HASH
         if usuario is not None:
             if bcrypt.checkpw(request.form['clave'].encode('utf-8'), usuario.clave.encode('utf-8')):
+                session['id'] = usuario.id
+                session['usuario'] = usuario.usuario
+                session['correo'] = usuario.correo
                 return {'status': 200, 'resultado':"Inicio de sesion exitoso"}, 200
             else:
                 return {'status': 401, 'resultado':"Credenciales invalidas"}, 401

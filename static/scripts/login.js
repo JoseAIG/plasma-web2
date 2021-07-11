@@ -13,8 +13,10 @@ boton_login.onclick = () => {
     }else{
         fetch_wrapper.post("login",datos_form_login)
         .then(data =>{
-            console.log(data);
             alert(data.resultado);
+            if(data.status == 200){
+                window.open("/dashboard","_self");
+            }
         })
     }
 }

@@ -45,6 +45,9 @@ button{
 button:hover{
     background-color: #e0e0e0;
 }
+button:focus{
+    outline: none;
+}
 
 .boton-acento{
     background-color: #9575cd;
@@ -58,7 +61,7 @@ button:hover{
 .card{
     border-radius: 15px;
     box-shadow: 2px 5px 13px black;
-    width: 35%;
+    width: 30%;
 }
 
 /* ESTILO DE LOS INPUTS DE LOS FORMULARIOS */
@@ -73,4 +76,16 @@ button:hover{
 .input-formulario:focus, .input-formulario:hover{
     outline: none;
     box-shadow: 2px 2px 8px lightgray;
+}
+
+/* AJUSTAR ELEMENTOS PARA PANTALLAS DE MENOR TAMANIO */
+@media (max-width: 900px) {
+    .card{
+        width: 50%;
+    }
+}
+@media (max-width: 500px) {  
+    .card{
+        width: 75%;
+    }
 }

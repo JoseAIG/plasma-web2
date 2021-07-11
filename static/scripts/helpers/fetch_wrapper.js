@@ -10,21 +10,29 @@ function doGet(URL) {
 //METODO POST
 function doPost(URL, body) {
     let opciones;
-    //COMPROBAR SI EL CUERPO DE LA PETICION ES UN FORM DATA
-    if(body instanceof FormData){
+    //COMPROBAR SI SE BRINDA UN CUERPO PARA LA PETICION
+    if(body){
+        //COMPROBAR SI EL CUERPO DE LA PETICION ES UN FORM DATA
+        if(body instanceof FormData){
+            opciones = {
+                method: 'POST',
+                body: body
+            }
+        }
+        //SI NO ES UN FORM DATA, SE ESTABLECE QUE EL BODY ES JSON
+        else{
+            opciones = {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(body)
+            }
+        }
+    }else{
         opciones = {
             method: 'POST',
-            body: body
         }
     }
-    //SI NO ES UN FORM DATA, SE ESTABLECE QUE EL BODY ES JSON
-    else{
-        opciones = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(body)
-        }
-    }
+
     return fetch(URL,opciones).then(response => response.json())
 }
 

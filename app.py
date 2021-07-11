@@ -43,9 +43,13 @@ def login():
         return verificar_credenciales(request)
 
 # ENDPOINT /dashboard METODO GET
-@app.route('/dashboard')
+@app.route('/dashboard', methods = ['GET', 'POST'])
 def dashboard():
-    return "Esta es la vista del dashboard"
+    if request.method == 'GET':
+        return render_template("dashboard.html")
+    elif request.method == 'POST':
+        session.clear()
+        return {"resultado": "Sesion finalizada", "status":200}, 200
 
 if __name__ == '__main__':
     db.init_app(app)

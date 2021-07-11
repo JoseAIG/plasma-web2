@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% from 'elements/navbar.html' import navbar %}
+
+{% block scripts %}
+    <script src="../static/scripts/dashboard.js" type="module" defer></script>
+{% endblock %}
+
+{% block title %} Plasma {% endblock %}
+
+{% block body %} 
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-light bg-light p-3">
+        <div>
+            <a href="/dashboard" class="text-decoration-none text-dark">
+                <img src="../static/assets/icons/plasma.svg" alt="p">
+                <h1 class="d-inline align-middle">Plasma</h1>
+            </a>
+        </div>
+        <div style="position: absolute; right: 1em;">
+            <button onclick="location.href='/perfil'">Editar perfil</button>
+        </div>
+    </nav>
+    <div class="container-fluid" style="height: 90vh;">
+        <div class="row flex-nowrap" style="height: 90vh;">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                        <li class="nav-item mt-2 mb-2">
+                            <a class="nav-link align-middle px-0 text-dark">
+                                <img src="../static/assets/icons/repositorio.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Mis repositorios</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link px-0 align-middle text-dark">
+                                <img src="../static/assets/icons/nuevo-repositorio.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Nuevo repositorio</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link px-0 align-middle text-dark">
+                                <img src="../static/assets/icons/imagen.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Nueva imagen</span>
+                            </a>
+                        </li>
+                        <li style="position:absolute; bottom: 1em">
+                            <a id="link-cerrar-sesion" class="nav-link px-0 align-middle text-dark" role="button">
+                                <img src="../static/assets/icons/logout.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Cerrar sesión</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col py-3">
+                <h4>contenido</h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}

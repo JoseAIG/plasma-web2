@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% from 'elements/navbar.html' import navbar %}
+
+{% block scripts %}
+    <script src="../static/scripts/registro.js" type="module" defer></script>
+{% endblock %}
+
+{% block title %} Plasma - Registrarse {% endblock %}
+
+{% block body %} 
+    <!-- NAVBAR -->
+    {{ navbar() }}
+    <!-- TARJETA DE REGISTRO -->
+    <div class="card mx-auto mt-5">
+        <div class="text-center mt-4 mb-4">
+            <h2>Crear nuevo usuario</h2>
+            <form autocomplete="off" id="form-registro" class="mt-4">
+                <div>
+                    <label for="usuario">Nombre de usuario</label>
+                    <br/>
+                    <input type="text" name="usuario" autocomplete="off" class="input-formulario"/>
+                </div>
+                <div>
+                    <label for="correo">Correo electrónico</label>
+                    <br/>
+                    <input type="email" name="correo" autocomplete="off" class="input-formulario"/>
+                </div>
+                <div>
+                    <label for="clave">Clave de acceso</label>
+                    <br/>
+                    <input type="password" name="clave" class="input-formulario"/>
+                </div>
+                <div>
+                    <label for="confirmar-clave">Confirmar clave</label>
+                    <br/>
+                    <input type="password" name="confirmar-clave" class="input-formulario"/>
+                </div>
+            </form>
+            <button id="boton-registro" class="mx-auto mt-3 boton-acento">Registrarse</button>
+            <div class="mt-2 mb-2">
+                <p class="d-inline">¿Ya tienes cuenta? </p><a class="d-inline text-decoration-none" href="/login">ingresa</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,31 +1,35 @@
 {% extends 'base.html' %}
 {% from 'elements/navbar.html' import navbar %}
 
+{% block scripts %}
+    <script src="../static/scripts/registro.js" type="module" defer></script>
+{% endblock %}
+
 {% block title %} Plasma - Iniciar sesión {% endblock %}
 
-{% block body %} 
+{% block body %}
+    <!-- NAVBAR -->
     {{ navbar() }}
-    <!-- <div class="contenedor-tarjeta"> -->
-        <div class="card mx-auto mt-5 w-50">
-            <div class="text-center mt-2 mb-2">
-                <h2>Iniciar sesión</h2>
-                <form autocomplete="off" id="form-login">
-                    <div>
-                        <label for="nombre">Usuario o correo</label>
-                        <br/>
-                        <input type="text" name="usuario"/>
-                    </div>
-                    <div>
-                        <label for="clave">Clave de acceso</label>
-                        <br/>
-                        <input type="password" name="clave"/>
-                    </div>
-                </form>
-                <button id="boton-login" class="mx-auto mt-3">Ingresar</button>
-                <div class="mt-2 mb-2">
-                    <p class="d-inline">¿No tienes cuenta? </p><a class="d-inline text-white" href="/registro">regístrate</a>
+    <!-- TARJETA DE LOGIN -->
+    <div class="card mx-auto mt-5">
+        <div class="text-center mt-4 mb-4">
+            <h2>Iniciar sesión</h2>
+            <form autocomplete="off" id="form-login" class="mt-4">
+                <div>
+                    <label for="nombre">Usuario o correo</label>
+                    <br/>
+                    <input type="text" name="usuario" class="input-formulario"/>
                 </div>
+                <div>
+                    <label for="clave">Clave de acceso</label>
+                    <br/>
+                    <input type="password" name="clave" class="input-formulario"/>
+                </div>
+            </form>
+            <button id="boton-login" class="mx-auto mt-3 boton-acento">Ingresar</button>
+            <div class="mt-2 mb-2">
+                <p class="d-inline">¿No tienes cuenta? </p><a class="d-inline text-decoration-none" href="/registro">regístrate</a>
             </div>
         </div>
-    <!-- </div> -->
+    </div>
 {% endblock %}

@@ -1,5 +1,14 @@
+/* FUENTES */
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../assets/fonts/Montserrat-Regular.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* BODY CON ANIMACION DE FONDO GRADIENTE */
 body{
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     height: 100vh;
     background: linear-gradient(120deg, #d1c4e9, #673ab7, #311b92, #b388ff, #7c4dff);
     background-size: 1000% 1000%;
@@ -29,10 +38,39 @@ nav{
 button{
     border: none;
     padding: 1em;
-    border-radius: 10px;
+    border-radius: 15px;
     background-color: #eeeeee;
     transition: background-color 1s;
 }
 button:hover{
     background-color: #e0e0e0;
+}
+
+.boton-acento{
+    background-color: #9575cd;
+    color: white;
+}
+.boton-acento:hover, .boton-acento:focus{
+    background-color: #7e57c2;
+}
+
+/* ESTILO DE LAS TARJETAS */
+.card{
+    border-radius: 15px;
+    box-shadow: 2px 5px 13px black;
+    width: 35%;
+}
+
+/* ESTILO DE LOS INPUTS DE LOS FORMULARIOS */
+.input-formulario{
+    width: 75%;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    padding: 0.5em;
+    transition: box-shadow 0.5s;
+    margin-bottom: 1em;
+}
+.input-formulario:focus, .input-formulario:hover{
+    outline: none;
+    box-shadow: 2px 2px 8px lightgray;
 }

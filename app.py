@@ -21,6 +21,11 @@ def before_request():
     elif 'usuario' and 'correo' in session and request.endpoint in ['landing_page', 'registro', 'login']:
         return redirect(url_for('dashboard'))
 
+# FAVICON
+@app.route('/favicon.ico')
+def favicon():
+    return app.send_static_file('assets/favicon.ico')
+
 # ENDPOINT / METODO GET
 @app.route("/")
 def landing_page():
@@ -42,7 +47,7 @@ def login():
     elif request.method == 'POST':
         return verificar_credenciales(request)
 
-# ENDPOINT /dashboard METODO GET
+# ENDPOINT /dashboard
 @app.route('/dashboard', methods = ['GET', 'POST'])
 def dashboard():
     if request.method == 'GET':
@@ -50,6 +55,16 @@ def dashboard():
     elif request.method == 'POST':
         session.clear()
         return {"resultado": "Sesion finalizada", "status":200}, 200
+
+# ENDPOINT /perfil
+@app.route('/perfil', methods = ['GET', 'PUT', 'DELETE'])
+def perfil():
+    if request.method == 'GET':
+        return obtener_datos_usuario()
+    elif request.method == 'PUT':
+        return modificar_usuario(request)
+    elif request.method == 'DELETE':
+        return eliminar_usuario()
 
 if __name__ == '__main__':
     db.init_app(app)

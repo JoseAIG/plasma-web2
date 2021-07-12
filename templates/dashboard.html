@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 {% from 'elements/navbar.html' import navbar %}
+{% from 'elements/modal.html' import modal_editar_perfil %}
+
+{% block styles %}
+    <link rel="stylesheet" href="../static/styles/dashboard.css">
+{% endblock %}
 
 {% block scripts %}
     <script src="../static/scripts/dashboard.js" type="module" defer></script>
+    <script src="../static/scripts/perfil.js" type="module" defer></script>
 {% endblock %}
 
 {% block title %} Plasma {% endblock %}
@@ -12,12 +18,13 @@
     <nav class="navbar navbar-light bg-light p-3">
         <div>
             <a href="/dashboard" class="text-decoration-none text-dark">
-                <img src="../static/assets/icons/plasma.svg" alt="p">
+                <img src="../static/assets/icons/plasma.svg" alt="p" style="width: 2em;">
                 <h1 class="d-inline align-middle">Plasma</h1>
             </a>
         </div>
         <div style="position: absolute; right: 1em;">
-            <button onclick="location.href='/perfil'">Editar perfil</button>
+            <!-- <button onclick="location.href='/perfil'">Editar perfil</button> -->
+            <a><img src="../static/imagenes/perfil/kitten.jpg" onerror="this.src='../static/assets/icons/usuario.svg'" class="rounded-circle icono-perfil"></a>
         </div>
     </nav>
     <div class="container-fluid" style="height: 90vh;">
@@ -26,6 +33,11 @@
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                         <li class="nav-item mt-2 mb-2">
+                            <a href="/dashboard" class="nav-link align-middle px-0 text-dark">
+                                <img src="../static/assets/icons/inicio.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Inicio</span>
+                            </a>
+                        </li>                        
+                        <li class="nav-item mb-2">
                             <a class="nav-link align-middle px-0 text-dark">
                                 <img src="../static/assets/icons/repositorio.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Mis repositorios</span>
                             </a>
@@ -37,9 +49,16 @@
                         </li>
                         <li class="nav-item mb-2">
                             <a class="nav-link px-0 align-middle text-dark">
-                                <img src="../static/assets/icons/imagen.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Nueva imagen</span>
+                                <img src="../static/assets/icons/cargar.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Nueva imagen</span>
                             </a>
                         </li>
+                        <!-- EDITAR PERFIL -->
+                        <li style="position:absolute; bottom: 4em">
+                            <a id="link-editar-perfil" class="nav-link px-0 align-middle text-dark" role="button" data-bs-toggle="modal" href="#modal-editar-perfil">
+                                <img src="../static/assets/icons/editar.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Editar perfil</span>
+                            </a>
+                        </li>
+                        <!-- CERRAR SESION -->
                         <li style="position:absolute; bottom: 1em">
                             <a id="link-cerrar-sesion" class="nav-link px-0 align-middle text-dark" role="button">
                                 <img src="../static/assets/icons/logout.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Cerrar sesión</span>
@@ -53,4 +72,6 @@
             </div>
         </div>
     </div>
+    <!-- MODAL EDITAR PERFIL -->
+    {{ modal_editar_perfil() }}
 {% endblock %}

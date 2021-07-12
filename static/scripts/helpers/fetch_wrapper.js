@@ -38,11 +38,30 @@ function doPost(URL, body) {
 
 //METODO PUT
 function doPut(URL, body) {
-    const opciones = {
-        method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(body)
+    let opciones;
+    //COMPROBAR SI SE BRINDA UN CUERPO PARA LA PETICION
+    if(body){
+        //COMPROBAR SI EL CUERPO DE LA PETICION ES UN FORM DATA
+        if(body instanceof FormData){
+            opciones = {
+                method: 'PUT',
+                body: body
+            }
+        }
+        //SI NO ES UN FORM DATA, SE ESTABLECE QUE EL BODY ES JSON
+        else{
+            opciones = {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(body)
+            }
+        }
+    }else{
+        opciones = {
+            method: 'PUT',
+        }
     }
+
     return fetch(URL,opciones).then(response => response.json())
 }
 

@@ -1,0 +1,9 @@
+/* ICONO DEL PERFIL DEL USUARIO EN LA NAVBAR */
+.icono-perfil{
+    width: 50px;
+}
+
+/* BOTON VOLVER */
+.boton-volver{
+    padding: 0.5em;
+}

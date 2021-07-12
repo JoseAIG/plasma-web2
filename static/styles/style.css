@@ -37,7 +37,7 @@ nav{
     border-bottom-right-radius: 15px; */
 }
 
-/* ESTILO DE BOTONES */
+/* ESTILO BASE DE BOTONES */
 button{
     border: none;
     padding: 1em;
@@ -60,6 +60,14 @@ button:focus{
     background-color: #7e57c2;
 }
 
+.boton-alerta{
+    background-color: #e53935;
+    color: white;
+}
+.boton-alerta:hover, .boton-alerta:focus{
+    background-color: #c62828;
+}
+
 /* ESTILO DE LAS TARJETAS */
 .card{
     border-radius: 15px;
@@ -68,7 +76,7 @@ button:focus{
 }
 
 /* ESTILO DE LOS INPUTS DE LOS FORMULARIOS */
-.input-formulario{
+.input-formulario, input{
     width: 75%;
     border: 1px solid lightgray;
     border-radius: 15px;
@@ -76,9 +84,17 @@ button:focus{
     transition: box-shadow 0.5s;
     margin-bottom: 1em;
 }
-.input-formulario:focus, .input-formulario:hover{
+.input-formulario:focus, input:focus, .input-formulario:hover, input:hover{
     outline: none;
     box-shadow: 2px 2px 8px lightgray;
+}
+
+/* ESTILO DE LOS MODALS */
+.modal-content{
+    border-radius: 15px;
+}
+.modal-header, .modal-footer{
+    border: 0px;
 }
 
 /* AJUSTAR ELEMENTOS PARA PANTALLAS DE MENOR TAMANIO */

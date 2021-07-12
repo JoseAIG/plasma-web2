@@ -36,3 +36,58 @@ def verificar_credenciales(request):
     except Exception as e:
         print(e)
         return {'status': 500, 'resultado':"No se pudieron verificar las credenciales"}, 500
+
+# FUNCION PARA OBTENER LOS DATOS DE UN USUARIO
+def obtener_datos_usuario():
+    try:
+        usuario = Usuario.query.get(session['id'])
+        return {'id':usuario.id, 'usuario':usuario.usuario, 'correo':usuario.correo, 'fecha_registro':usuario.fecha_registro, 'status':200}, 200
+    except Exception as e:
+        print(e)
+        return {'status': 500, 'resultado':"No se pudo obtener los datos del usuario"}, 500
+
+# FUNCION PARA MODIFICAR LOS DATOS DE UN USUARIO
+def modificar_usuario(request):
+    try:
+        cambio_realizado = False # FLAG PARA DETERMINAR SI UN CAMBIO FUE REALIZADO
+        # OBTENER EL REGISTRO DEL USUARIO EN LA BASE DE DATOS
+        usuario = Usuario.query.get(session['id'])
+        # COMPROBAR SI EL NOMBRE DE USUARIO FUE CAMBIADO
+        if usuario.usuario != request.form['usuario']:
+            usuario.usuario = request.form['usuario']
+            cambio_realizado = True
+        # COMPROBAR SI EL CORREO DEL USUARIO FUE CAMBIADO
+        if usuario.correo != request.form['correo']:
+            usuario.correo = request.form['correo']
+            cambio_realizado = True
+        # COMPROBAR SI SE SOLICITA UN CAMBIO DE CLAVE
+        if request.form['clave'] != "":
+            # OBTENER EL HASH DE LA NUEVA CLAVE DEL USUARIO
+            hash_clave = bcrypt.hashpw(request.form['clave'].encode('utf8'), bcrypt.gensalt()).decode()
+            usuario.clave = hash_clave
+            cambio_realizado = True
+        # HECER COMMIT DE LOS CAMBIOS A LA DB DE HABERSE REALIZADO UN CAMBIO Y ACTUALIZAR LOS VALORES DE LA SESION
+        if cambio_realizado:
+            db.session.commit()
+            session['usuario'] = usuario.usuario
+            session['correo'] = usuario.correo
+            return {'status':200, 'resultado':"Datos actualizados exitosamente"}, 200
+        else:
+            return {'status':400, 'resultado':"Los datos brindados son los mismos que los actuales"}, 400
+    except Exception as e:
+        print(e)
+        return {'status':500, 'resultado':"No se pudo modificar el perfil"}, 500
+
+# FUNCION PARA LA ELIMINACION DE UN USUARIO
+def eliminar_usuario():
+    try:
+        # OBTENER EL REGISTRO DEL USUARIO EN LA BASE DE DATOS Y ELIMINARLO
+        usuario = Usuario.query.get(session['id'])
+        db.session.delete(usuario)
+        db.session.commit()
+        # ELIMINAR LA SESION
+        session.clear()
+        return {'status':200, 'resultado':"Perfil eliminado exitosamente"}, 200
+    except Exception as e:
+        print(e)
+        return {'status':500, 'resultado':"No se pudo eliminar el perfil"}, 500

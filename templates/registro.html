@@ -14,6 +14,7 @@
     <div class="card mx-auto mt-5">
         <div class="text-center mt-4 mb-4">
             <h2>Crear nuevo usuario</h2>
+            <img id="previsualizacion-imagen" src="" onerror="this.src='../static/assets/icons/usuario.svg'" style="width: 90px;" class="rounded-circle">
             <form autocomplete="off" id="form-registro" class="mt-4">
                 <div>
                     <label for="usuario">Nombre de usuario</label>
@@ -35,6 +36,11 @@
                     <br/>
                     <input type="password" name="confirmar-clave" class="input-formulario"/>
                 </div>
+                <div>
+                    <label for="confirmar-clave">Imagen de perfil (opcional)</label>
+                    <br/>
+                    <input type="file" accept="image/*" name="imagen" id="input-imagen-perfil" class="input-formulario"/>
+                </div>
             </form>
             <button id="boton-registro" class="mx-auto mt-3 boton-acento">Registrarse</button>
             <div class="mt-2 mb-2">
@@ -42,4 +48,12 @@
             </div>
         </div>
     </div>
+
+    <script>
+        let previsualizacion_imagen = document.getElementById("previsualizacion-imagen");
+        let input_imagen_perfil = document.getElementById("input-imagen-perfil");
+        input_imagen_perfil.onchange = (e) => {
+            previsualizacion_imagen.src = URL.createObjectURL(e.target.files[0]);
+        }
+    </script>
 {% endblock %}

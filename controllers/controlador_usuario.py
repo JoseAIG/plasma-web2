@@ -1,5 +1,6 @@
-from flask import session
+from flask import current_app, session
 import bcrypt
+import os, uuid
 from app import db
 from models.usuario import Usuario
 
@@ -8,8 +9,21 @@ def registrar_usuario(request):
     try:
         # OBTENER EL HASH DE LA CLAVE DEL USUARIO
         hash_clave = bcrypt.hashpw(request.form['clave'].encode('utf8'), bcrypt.gensalt()).decode()
-        # INSTANCIAR UN NUEVO USUARIO E INGRESARLO A LA BASE DE DATOS
-        nuevo_usuario = Usuario(request.form['usuario'], request.form['correo'], hash_clave)
+        # COMPROBAR SI SE HA CARGADO UNA IMAGEN DE PERFIL
+        if not request.files['imagen'].filename == '':
+            # COMPROBAR SI LA RUTA PARA LAS IMAGENES DE PERFIL EXISTEN, DE NO EXISTIR, SE CREAN
+            if not os.path.exists(current_app.config['PROFILE_IMAGES']):
+                os.makedirs(current_app.config['PROFILE_IMAGES'])
+            # OBTENER LA IMAGEN DE LA PETICION Y ALMACENARLA EN LA RUTA DE IMAGENES DE PERFIL TRAS GENERAR UN NOMBRE UNICO PARA ELLA
+            imagen_perfil = request.files['imagen']
+            nombre_imagen_perfil = uuid.uuid4().hex + imagen_perfil.filename
+            ruta_imagen_perfil = os.path.join(current_app.config['PROFILE_IMAGES'],nombre_imagen_perfil)
+            imagen_perfil.save(ruta_imagen_perfil)
+            # INSTANCIAR UN NUEVO USUARIO CON LA RUTA DE LA IMAGEN DEFINIDA
+            nuevo_usuario = Usuario(request.form['usuario'], request.form['correo'], hash_clave, ruta_imagen_perfil)
+        else:
+            # INSTANCIAR UN NUEVO USUARIO SIN UNA RUTA PARA LA IMAGEN
+            nuevo_usuario = Usuario(request.form['usuario'], request.form['correo'], hash_clave, None)
         db.session.add(nuevo_usuario)
         db.session.commit()
         return {'status': 200, 'resultado':"Usuario registrado exitosamente"}, 200
@@ -41,7 +55,7 @@ def verificar_credenciales(request):
 def obtener_datos_usuario():
     try:
         usuario = Usuario.query.get(session['id'])
-        return {'id':usuario.id, 'usuario':usuario.usuario, 'correo':usuario.correo, 'fecha_registro':usuario.fecha_registro, 'status':200}, 200
+        return {'id':usuario.id, 'usuario':usuario.usuario, 'correo':usuario.correo, 'fecha_registro':usuario.fecha_registro, 'ruta_imagen_perfil':usuario.ruta_imagen_perfil, 'status':200}, 200
     except Exception as e:
         print(e)
         return {'status': 500, 'resultado':"No se pudo obtener los datos del usuario"}, 500

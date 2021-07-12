@@ -9,14 +9,12 @@
 /* BODY CON ANIMACION DE FONDO GRADIENTE */
 body{
     font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    height: 100vh;
+    /* height: 110vh; */
     background: linear-gradient(120deg, #d1c4e9, #673ab7, #311b92, #b388ff, #7c4dff);
     background-size: 1000% 1000%;
 
     -webkit-animation: AnimationName 50s ease infinite;
     animation: AnimationName 50s ease infinite;
-
-    overflow: hidden;
 }
 @-webkit-keyframes AnimationName {
     0%{background-position:0% 17%}
@@ -27,6 +25,11 @@ body{
     0%{background-position:0% 17%}
     50%{background-position:100% 84%}
     100%{background-position:0% 17%}
+}
+
+/* EVITAR QUE UN USUARIO PUEDA ARRASTRAR LA IMAGEN */
+img{
+    -webkit-user-drag: none;
 }
 
 /* BARRA DE NAVEGACION SUPERIOR */
@@ -73,6 +76,7 @@ button:focus{
     border-radius: 15px;
     box-shadow: 2px 5px 13px black;
     width: 30%;
+    margin-bottom: 3em;
 }
 
 /* ESTILO DE LOS INPUTS DE LOS FORMULARIOS */
@@ -87,6 +91,10 @@ button:focus{
 .input-formulario:focus, input:focus, .input-formulario:hover, input:hover{
     outline: none;
     box-shadow: 2px 2px 8px lightgray;
+}
+input[type="file"]::-webkit-file-upload-button{
+    border-radius: 15px;
+    border: none;
 }
 
 /* ESTILO DE LOS MODALS */

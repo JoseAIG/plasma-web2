@@ -2,10 +2,6 @@
 import { fetch_wrapper } from "./helpers/fetch_wrapper.js";
 import { validar_correo } from "./helpers/validacion_correo.js"
 
-window.onload = () => {
-    console.log("Obtener la imagen del usuario")
-}
-
 //FUNCIONALIDAD PARA MOSTRAR LOS DATOS ACTUALES DEL USUARIO CUANDO DESEA MODIFICAR SU PERFIL
 var input_editar_usuario = document.getElementById("input-editar-usuario");
 var input_editar_correo = document.getElementById("input-editar-correo");
@@ -40,10 +36,12 @@ boton_guardar_edicion_perfil.onclick = () => {
 //FUNCIONALIDAD ELIMINAR PERFIL
 var boton_eliminar_perfil = document.getElementById("boton-eliminar-perfil");
 boton_eliminar_perfil.onclick = () => {
-    fetch_wrapper.delete("perfil").then(data => {
-        alert(data.resultado);
-        if(data.status == 200){
-            window.open("/","_self");
-        }
-    })
+    if(confirm("¿Desea eliminar su perfil?")){
+        fetch_wrapper.delete("perfil").then(data => {
+            alert(data.resultado);
+            if(data.status == 200){
+                window.open("/","_self");
+            }
+        })
+    }
 }

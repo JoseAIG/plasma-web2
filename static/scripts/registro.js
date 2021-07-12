@@ -6,7 +6,6 @@ import { validar_correo } from "./helpers/validacion_correo.js";
 var form_registro = document.getElementById("form-registro");
 var boton_registro = document.getElementById("boton-registro");
 boton_registro.onclick = () => {
-    // fetch_wrapper.post("/registro").then(data => console.log(data)).catch(error => console.error(error));
     let datos_form_registro = new FormData(form_registro);
     //COMPROBAR QUE LOS CAMPOS ESTEN COMPLETOS
     if(datos_form_registro.get("usuario")=="" || datos_form_registro.get("correo")=="" || datos_form_registro.get("clave")=="" || datos_form_registro.get("confirmar-clave")==""){

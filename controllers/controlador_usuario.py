@@ -80,11 +80,25 @@ def modificar_usuario(request):
             hash_clave = bcrypt.hashpw(request.form['clave'].encode('utf8'), bcrypt.gensalt()).decode()
             usuario.clave = hash_clave
             cambio_realizado = True
+        # COMPROBAR SI SE HA ENVIADO UNA NUEVA IMAGEN DE PERFIL
+        if not request.files['imagen'].filename == '':
+            # COMPROBAR SI LA RUTA PARA LAS IMAGENES DE PERFIL EXISTEN, DE NO EXISTIR, SE CREAN
+            if not os.path.exists(current_app.config['PROFILE_IMAGES']):
+                os.makedirs(current_app.config['PROFILE_IMAGES'])
+            # OBTENER LA IMAGEN DE LA PETICION Y ALMACENARLA EN LA RUTA DE IMAGENES DE PERFIL TRAS GENERAR UN NOMBRE UNICO PARA ELLA
+            imagen_perfil = request.files['imagen']
+            nombre_imagen_perfil = uuid.uuid4().hex + imagen_perfil.filename
+            ruta_imagen_perfil = os.path.join(current_app.config['PROFILE_IMAGES'],nombre_imagen_perfil)
+            imagen_perfil.save(ruta_imagen_perfil)
+            # ACTUALIZAR EL VALOR DE LA RUTA DE LA IMAGEN DE PERFIL DEL USUARIO
+            usuario.ruta_imagen_perfil = ruta_imagen_perfil
+            cambio_realizado = True
         # HECER COMMIT DE LOS CAMBIOS A LA DB DE HABERSE REALIZADO UN CAMBIO Y ACTUALIZAR LOS VALORES DE LA SESION
         if cambio_realizado:
             db.session.commit()
             session['usuario'] = usuario.usuario
             session['correo'] = usuario.correo
+            print(session)
             return {'status':200, 'resultado':"Datos actualizados exitosamente"}, 200
         else:
             return {'status':400, 'resultado':"Los datos brindados son los mismos que los actuales"}, 400

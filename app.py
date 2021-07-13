@@ -9,8 +9,9 @@ app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 db = SQLAlchemy(app)
 
-# CONTROLADOR USUARIO
+# CONTROLADORES
 from controllers.controlador_usuario import *
+from controllers.controlador_repositorio import *
 
 @app.before_request
 def before_request():
@@ -25,6 +26,11 @@ def before_request():
 @app.route('/favicon.ico')
 def favicon():
     return app.send_static_file('assets/favicon.ico')
+
+# VISTA 404, RECURSO NO ENCONTRADO
+@app.errorhandler(404)
+def error_404(e):
+    return render_template("404.html") 
 
 # ENDPOINT / METODO GET
 @app.route("/")
@@ -65,6 +71,20 @@ def perfil():
         return modificar_usuario(request)
     elif request.method == 'DELETE':
         return eliminar_usuario()
+
+# ENDPOINT /repositorio
+@app.route('/repositorio', methods = ['GET', 'POST', 'PUT', 'DELETE'])
+def repositorio():
+    if request.method == 'GET':
+        return obtener_repositorios_usuario()
+    if request.method == 'POST':
+        return crear_repositorio(request)
+
+# ENDPOINT /usuario
+@app.route('/perfil-usuario', methods = ['GET'])
+def perfil_usuario():
+    if request.method == 'GET':
+        return render_template('perfil_usuario.html')
 
 if __name__ == '__main__':
     db.init_app(app)

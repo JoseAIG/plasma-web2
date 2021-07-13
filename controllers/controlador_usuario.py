@@ -55,7 +55,7 @@ def verificar_credenciales(request):
 def obtener_datos_usuario():
     try:
         usuario = Usuario.query.get(session['id'])
-        return {'id':usuario.id, 'usuario':usuario.usuario, 'correo':usuario.correo, 'fecha_registro':usuario.fecha_registro, 'ruta_imagen_perfil':usuario.ruta_imagen_perfil, 'status':200}, 200
+        return {'id':usuario.id, 'usuario':usuario.usuario, 'correo':usuario.correo, 'fecha_registro':usuario.fecha_registro.strftime("%d/%m/%Y"), 'ruta_imagen_perfil':usuario.ruta_imagen_perfil, 'status':200}, 200
     except Exception as e:
         print(e)
         return {'status': 500, 'resultado':"No se pudo obtener los datos del usuario"}, 500

@@ -7,6 +7,40 @@ body{
     background-color: #e0e0e0;
 }
 
+/* CONTENEDOR PRINCIPAL DE CONTENIDO */
+#div-contenido-principal{
+    overflow: auto;
+}
+
+/* CONTENEDOR DE LOS DATOS DEL PERFIL DEL USUARIO */
+#contenedor-datos-usuario{
+    background-color: #e0e0e0;
+    border-radius: 15px;
+    /* box-shadow: 2px 5px 5px gray; */
+}
+
+/* IMAGEN DE PERFIL DEL USUARIO EN LA VISTA DE PERFIL */
+#imagen-perfil-usuario{
+    width: 15%;
+}
+
+.card{
+    width: 100%;
+    margin-bottom: 1em;
+    transition: transform 0.5s;
+    box-shadow: 2px 5px 5px gray;
+}
+.card:hover{
+    transform: scale(1.02);
+}
+
+.card img{
+    width: 50%;
+    margin: auto;
+    margin-top: 1em;
+    border-radius: 15px;
+}
+
 /* ICONO DEL PERFIL DEL USUARIO EN LA NAVBAR */
 .icono-perfil{
     width: 50px;
@@ -15,4 +49,16 @@ body{
 /* BOTON VOLVER */
 .boton-volver{
     padding: 0.5em;
+}
+
+/* AJUSTE PARA PANTALLAS DE MENOR TAMANO */
+@media (max-width: 900px) {
+    #imagen-perfil-usuario{
+        width: 30%;
+    }
+}
+@media (max-width: 500px) {  
+    #imagen-perfil-usuario{
+        width: 45%;
+    }
 }

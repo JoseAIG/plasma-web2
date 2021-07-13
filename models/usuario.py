@@ -10,6 +10,8 @@ class Usuario(db.Model):
     clave = db.Column(db.String(65), nullable=False)
     fecha_registro = db.Column(db.DateTime, default=datetime.utcnow)
     ruta_imagen_perfil = db.Column(db.String(150), nullable=True)
+    # RELACION UNO A MUCHOS CON REPOSITORIOS
+    repositorios = db.relationship('Repositorio')
 
     # CONSTRUCTOR
     def __init__(self, usuario, correo, clave, ruta_imagen_perfil):

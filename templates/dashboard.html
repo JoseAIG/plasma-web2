@@ -8,7 +8,7 @@
 
 {% block scripts %}
     <script src="../static/scripts/dashboard.js" type="module" defer></script>
-    <script src="../static/scripts/perfil.js" type="module" defer></script>
+    <script src="../static/scripts/modificacion_perfil.js" type="module" defer></script>
 {% endblock %}
 
 {% block title %} Plasma {% endblock %}
@@ -23,8 +23,7 @@
             </a>
         </div>
         <div style="position: absolute; right: 1em;">
-            <!-- <button onclick="location.href='/perfil'">Editar perfil</button> -->
-            <a><img src="../static/assets/icons/usuario.svg" onerror="this.src='../static/assets/icons/usuario.svg'" id="imagen-icono-perfil" class="rounded-circle icono-perfil"></a>
+            <a href="perfil-usuario"><img src="../static/assets/icons/usuario.svg" onerror="this.src='../static/assets/icons/usuario.svg'" id="imagen-icono-perfil" class="rounded-circle icono-perfil"></a>
         </div>
     </nav>
     <div class="container-fluid" style="height: 90vh;">
@@ -38,7 +37,7 @@
                             </a>
                         </li>                        
                         <li class="nav-item mb-2">
-                            <a class="nav-link align-middle px-0 text-dark">
+                            <a href="perfil-usuario" class="nav-link align-middle px-0 text-dark">
                                 <img src="../static/assets/icons/repositorio.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Mis repositorios</span>
                             </a>
                         </li>
@@ -67,8 +66,10 @@
                     </ul>
                 </div>
             </div>
-            <div class="col py-3">
-                <h4>contenido</h4>
+            <div id="div-contenido-principal" class="col py-3">
+                {% block contenido %}
+                    <h4>contenido en la vista del dashboard</h4>
+                {% endblock %}
             </div>
         </div>
     </div>

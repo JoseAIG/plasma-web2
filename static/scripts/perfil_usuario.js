@@ -42,11 +42,8 @@ function dibujar_tarjetas_repositorios(repositorios) {
             col_div.className = 'col';
             let card_div = document.createElement('div');
             card_div.className = 'card';
-            //card_div.style.textAlign = "center";
             //IMAGEN DEL REPOSITORIO
             let img = document.createElement('img');
-            // img.style.width = "50%";
-            // img.style.margin = "auto";
             if(repositorios[i].ruta_imagen_repositorio){
                 img.src = repositorios[i].ruta_imagen_repositorio;
             }else{
@@ -77,6 +74,13 @@ function dibujar_tarjetas_repositorios(repositorios) {
         h4.className = 'text-center mx-auto mt-5 w-100';
         h4.innerText = 'Parece que aun no tienes repositorios... ¡Crea alguno!';
         contenedor_tarjetas_repositorios.appendChild(h4);
+        //BOTON PARA CREAR UN NUEVO REPOSITORIO
+        let button = document.createElement('button');
+        button.className = "boton-acento mx-auto w-auto";
+        button.innerText = "Nuevo repositorio";
+        button.setAttribute("data-bs-toggle","modal");
+        button.setAttribute("data-bs-target","#modal-crear-repositorio");
+        contenedor_tarjetas_repositorios.appendChild(button);
     }
 
 }

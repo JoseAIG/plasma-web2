@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% from 'elements/navbar.html' import navbar %}
 {% from 'elements/modal.html' import modal_editar_perfil %}
+{% from 'elements/modal.html' import modal_crear_repositorio %}
 
 {% block styles %}
     <link rel="stylesheet" href="../static/styles/dashboard.css">
@@ -9,6 +10,7 @@
 {% block scripts %}
     <script src="../static/scripts/dashboard.js" type="module" defer></script>
     <script src="../static/scripts/modificacion_perfil.js" type="module" defer></script>
+    <script src="../static/scripts/repositorios.js" type="module" defer></script>
 {% endblock %}
 
 {% block title %} Plasma {% endblock %}
@@ -42,7 +44,7 @@
                             </a>
                         </li>
                         <li class="nav-item mb-2">
-                            <a class="nav-link px-0 align-middle text-dark">
+                            <a class="nav-link px-0 align-middle text-dark" data-bs-toggle="modal" href="#modal-crear-repositorio">
                                 <img src="../static/assets/icons/nuevo-repositorio.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Nuevo repositorio</span>
                             </a>
                         </li>
@@ -75,4 +77,6 @@
     </div>
     <!-- MODAL EDITAR PERFIL -->
     {{ modal_editar_perfil() }}
+    <!-- MODAL CREAR REPOSITORIO -->
+    {{ modal_crear_repositorio() }}
 {% endblock %}

@@ -5,8 +5,8 @@ class Repositorio(db.Model):
     __tablename__ = 'repositorios'
     id = db.Column(db.Integer, primary_key=True)
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuarios.id'))
-    nombre = db.Column(db.String(60), nullable=False)
-    descripcion = db.Column(db.String(65), nullable=True)
+    nombre = db.Column(db.String(25), nullable=False)
+    descripcion = db.Column(db.String(100), nullable=True)
     fecha_creacion = db.Column(db.DateTime, default=datetime.utcnow)
     ruta_imagen_repositorio = db.Column(db.String(150), nullable=True)
 

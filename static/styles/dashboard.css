@@ -24,6 +24,11 @@ body{
     width: 15%;
 }
 
+/* PREVISUALIZACION DE LA IMAGEN DEL REPOSITORIO EN EL MODAL DE CREACION */
+#previsualizacion-imagen-crear-repositorio{
+    border-radius: 15px;
+}
+
 .card{
     width: 100%;
     margin-bottom: 1em;

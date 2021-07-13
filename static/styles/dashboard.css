@@ -25,7 +25,7 @@ body{
 }
 
 /* PREVISUALIZACION DE LA IMAGEN DEL REPOSITORIO EN EL MODAL DE CREACION Y EDICION*/
-#previsualizacion-imagen-crear-repositorio, #previsualizacion-imagen-editar-repositorio{
+#previsualizacion-imagen-crear-repositorio, #previsualizacion-imagen-editar-repositorio, #previsualizacion-imagen-crear-imagen{
     border-radius: 15px;
 }
 
@@ -62,6 +62,56 @@ body{
 /* BOTON VOLVER */
 .boton-volver{
     padding: 0.5em;
+}
+
+/* ESTILOS REFERENTES A LOS TAGS */
+.contenedor-tags{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 75%;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    /* padding: 0.5em; */
+    /* transition: box-shadow 0.5s; */
+    margin: auto;
+    margin-bottom: 1em;
+    transition: box-shadow 0.5s;
+    padding: 0.5em;
+}
+
+.tag{
+    display: flex;
+    align-items: center;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    padding: 0.5em;
+    margin: 0.5em;
+    background-color: #eeeeee;
+    font-size: smaller;
+}
+
+.tag img{
+    width: 15px;
+    cursor: pointer;
+}
+
+.contenedor-tags input{
+    flex: 1;
+    order: 99;
+    /* border: none; */
+    /* border-radius: none; */
+    width: 100%;
+    margin-bottom: 0px;
+    transition: none;
+}
+
+.contenedor-tags input:hover, .contenedor-tags input:focus{
+    box-shadow: none;
+}
+
+.contenedor-tags:hover, .contenedor-tags:focus{
+    box-shadow: 2px 2px 8px lightgray;
 }
 
 /* AJUSTE PARA PANTALLAS DE MENOR TAMANO */

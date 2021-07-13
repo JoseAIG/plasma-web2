@@ -2,7 +2,7 @@
 {% from 'elements/navbar.html' import navbar %}
 {% from 'elements/modal.html' import modal_editar_perfil %}
 {% from 'elements/modal.html' import modal_crear_repositorio %}
-{% from 'elements/modal.html' import modal_editar_repositorio %}
+{% from 'elements/modal.html' import modal_editar_repositorio, modal_crear_imagen %}
 
 {% block styles %}
     <link rel="stylesheet" href="../static/styles/dashboard.css">
@@ -12,6 +12,7 @@
     <script src="../static/scripts/dashboard.js" type="module" defer></script>
     <script src="../static/scripts/modificacion_perfil.js" type="module" defer></script>
     <script src="../static/scripts/repositorios.js" type="module" defer></script>
+    <script src="../static/scripts/imagenes.js" type="module" defer></script>
 {% endblock %}
 
 {% block title %} Plasma {% endblock %}
@@ -50,7 +51,7 @@
                             </a>
                         </li>
                         <li class="nav-item mb-2">
-                            <a class="nav-link px-0 align-middle text-dark">
+                            <a id="link-nueva-imagen" class="nav-link px-0 align-middle text-dark" data-bs-toggle="modal" href="#modal-crear-imagen">
                                 <img src="../static/assets/icons/cargar.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Nueva imagen</span>
                             </a>
                         </li>
@@ -82,4 +83,6 @@
     {{ modal_crear_repositorio() }}
     <!-- MODAL EDITAR REPOSITORIO -->
     {{ modal_editar_repositorio() }}
+    <!-- MODAL CREAR IMAGEN -->
+    {{ modal_crear_imagen() }}
 {% endblock %}

@@ -14,7 +14,7 @@ var boton_guardar_repositorio = document.getElementById("boton-guardar-repositor
 boton_guardar_repositorio.onclick = () => {
     let datos_form_crear_repositorio = new FormData(form_crear_repositorio);
     if(datos_form_crear_repositorio.get('nombre') == ""){
-        alert("Ingrese un nombre para su repositorio:");
+        alert("Ingrese un nombre para su repositorio.");
     }
     else if(datos_form_crear_repositorio.get('nombre').length > 25){
         alert("Ingrese un nombre que contenga menos de 25 caracteres.");
@@ -25,7 +25,7 @@ boton_guardar_repositorio.onclick = () => {
         fetch_wrapper.post('repositorio', datos_form_crear_repositorio).then(data => {
             alert(data.resultado);
             if(data.status == 200){
-                window.open("/perfil-usuario","_self");
+                window.open(window.location.href,"_self");
             }
         })
     }
@@ -63,7 +63,7 @@ function guardar_edicion_repositorio(id) {
         datos_form_editar_repositorio.append('id', id);
         //COMPROBAR QUE LOS DATOS DEL FORMULARIO SEAN VALIDOS
         if(datos_form_editar_repositorio.get('nombre') == ""){
-            alert("Ingrese un nombre para su repositorio:");
+            alert("Ingrese un nombre para su repositorio.");
         }
         else if(datos_form_editar_repositorio.get('nombre').length > 25){
             alert("Ingrese un nombre que contenga menos de 25 caracteres.");

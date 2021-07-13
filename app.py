@@ -12,6 +12,7 @@ db = SQLAlchemy(app)
 # CONTROLADORES
 from controllers.controlador_usuario import *
 from controllers.controlador_repositorio import *
+from controllers.controlador_imagen import *
 
 @app.before_request
 def before_request():
@@ -83,6 +84,12 @@ def repositorio():
         return editar_repositorio(request)
     elif request.method == 'DELETE':
         return eliminar_repositorio(request)
+
+# ENDPOINT /imagen
+@app.route('/imagen', methods = ['GET', 'POST', 'PUT', 'DELETE'])
+def imagen():
+    if request.method == 'POST':
+        return crear_imagen(request)
 
 # ENDPOINT /usuario
 @app.route('/perfil-usuario', methods = ['GET'])

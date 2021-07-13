@@ -88,7 +88,7 @@ button:focus{
     transition: box-shadow 0.5s;
     margin-bottom: 1em;
 }
-.input-formulario:focus, input:focus, .input-formulario:hover, input:hover{
+.input-formulario:focus, input:focus, .input-formulario:hover, input:hover, select:focus, select:hover{
     outline: none;
     box-shadow: 2px 2px 8px lightgray;
 }
@@ -96,6 +96,17 @@ input[type="file"]::-webkit-file-upload-button{
     border-radius: 15px;
     border: none;
 }
+
+/* SELECT TAG */
+select{
+    width: 75%;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    padding: 0.5em;
+    transition: box-shadow 0.5s;
+    margin-bottom: 1em;
+}
+
 
 /* ESTILO DE LOS MODALS */
 .modal-content{

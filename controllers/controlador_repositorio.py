@@ -1,4 +1,4 @@
-from flask import current_app, session, jsonify
+from flask import current_app, session
 import os, uuid
 from app import db
 from models.repositorio import Repositorio
@@ -51,3 +51,52 @@ def crear_repositorio(request):
     except Exception as e:
         print(e)
         return {"resultado":"No se pudo crear el repositorio", "status":500}, 500
+
+# FUNCION PARA EDITAR UN REPOSITORIO EXISTENTE
+def editar_repositorio(request):
+    try:
+        cambio_realizado = False # FLAG PARA DETERMINAR SI UN CAMBIO FUE REALIZADO
+        # OBTENER EL REGISTRO DEL REPOSITORIO A EDITAR
+        repositorio = Repositorio.query.get(request.form['id'])
+        # COMPROBAR SI EL NOMBRE HA SIDO CAMBIADO
+        if request.form['nombre'] != repositorio.nombre:
+            repositorio.nombre = request.form['nombre']
+            cambio_realizado = True
+        # COMPROBAR SI LA DESCRIPCION HA SIDO CAMBIADA
+        if request.form['descripcion'] != repositorio.descripcion:
+            repositorio.descripcion = request.form['descripcion']
+            cambio_realizado = True
+        # COMPROBAR SI SE HA CARGADO UNA IMAGEN
+        if not request.files['imagen'].filename == '':
+            # COMPROBAR SI LA RUTA PARA LAS IMAGENES DE PERFIL EXISTEN, DE NO EXISTIR, SE CREAN
+            if not os.path.exists(current_app.config['REPOSITORY_IMAGES']):
+                os.makedirs(current_app.config['REPOSITORY_IMAGES'])
+            # OBTENER LA IMAGEN DE LA PETICION Y ALMACENARLA EN LA RUTA DE IMAGENES DE PERFIL TRAS GENERAR UN NOMBRE UNICO PARA ELLA
+            imagen_repositorio = request.files['imagen']
+            nombre_imagen_repositorio = uuid.uuid4().hex + imagen_repositorio.filename
+            ruta_imagen_repositorio = os.path.join(current_app.config['REPOSITORY_IMAGES'],nombre_imagen_repositorio)
+            imagen_repositorio.save(ruta_imagen_repositorio)
+            # ACTUALIZAR EL VALOR DE LA RUTA DE LA IMAGEN DE PERFIL DEL USUARIO
+            repositorio.ruta_imagen_repositorio = ruta_imagen_repositorio
+            cambio_realizado = True
+        # HECER COMMIT DE LOS CAMBIOS A LA DB DE HABERSE REALIZADO UN CAMBIO
+        if cambio_realizado:
+            db.session.commit()
+            return {'status':200, 'resultado':"Repositorio actualizado exitosamente"}, 200
+        else:
+            return {'status':400, 'resultado':"Los datos brindados son los mismos que los actuales"}, 400
+    except Exception as e:
+        print(e)
+        return {"resultado":"No se pudo editar el repositorio", "status":500}, 500
+
+# FUNCION PARA ELIMINAR UN REPOSITORIO EXISTENTE
+def eliminar_repositorio(request):
+    try:
+        # OBTENER EL REGISTRO DEL REPOSITORIO EN LA BASE DE DATOS Y ELIMINARLO
+        repositorio = Repositorio.query.get(request.json['id'])
+        db.session.delete(repositorio)
+        db.session.commit()
+        return {'status':200, 'resultado':"Repositorio eliminado exitosamente"}, 200
+    except Exception as e:
+        print(e)
+        return {"resultado":"No se pudo eliminar el repositorio", "status":500}, 500

@@ -66,10 +66,31 @@ function doPut(URL, body) {
 }
 
 //METODO DELETE
-function doDelete(URL) {
-    const opciones = {
-        method: 'DELETE'
+function doDelete(URL, body) {
+    let opciones;
+    //COMPROBAR SI SE BRINDA UN CUERPO PARA LA PETICION
+    if(body){
+        //COMPROBAR SI EL CUERPO DE LA PETICION ES UN FORM DATA
+        if(body instanceof FormData){
+            opciones = {
+                method: 'DELETE',
+                body: body
+            }
+        }
+        //SI NO ES UN FORM DATA, SE ESTABLECE QUE EL BODY ES JSON
+        else{
+            opciones = {
+                method: 'DELETE',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(body)
+            }
+        }
+    }else{
+        opciones = {
+            method: 'DELETE',
+        }
     }
+    
     return fetch(URL,opciones).then(response => response.json())
 }
 

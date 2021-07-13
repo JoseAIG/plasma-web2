@@ -2,6 +2,7 @@
 {% from 'elements/navbar.html' import navbar %}
 {% from 'elements/modal.html' import modal_editar_perfil %}
 {% from 'elements/modal.html' import modal_crear_repositorio %}
+{% from 'elements/modal.html' import modal_editar_repositorio %}
 
 {% block styles %}
     <link rel="stylesheet" href="../static/styles/dashboard.css">
@@ -79,4 +80,6 @@
     {{ modal_editar_perfil() }}
     <!-- MODAL CREAR REPOSITORIO -->
     {{ modal_crear_repositorio() }}
+    <!-- MODAL EDITAR REPOSITORIO -->
+    {{ modal_editar_repositorio() }}
 {% endblock %}

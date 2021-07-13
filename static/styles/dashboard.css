@@ -24,8 +24,8 @@ body{
     width: 15%;
 }
 
-/* PREVISUALIZACION DE LA IMAGEN DEL REPOSITORIO EN EL MODAL DE CREACION */
-#previsualizacion-imagen-crear-repositorio{
+/* PREVISUALIZACION DE LA IMAGEN DEL REPOSITORIO EN EL MODAL DE CREACION Y EDICION*/
+#previsualizacion-imagen-crear-repositorio, #previsualizacion-imagen-editar-repositorio{
     border-radius: 15px;
 }
 
@@ -44,6 +44,14 @@ body{
     margin: auto;
     margin-top: 1em;
     border-radius: 15px;
+}
+
+.card button{
+    display: flex;
+    align-items: center;
+    width: auto;
+    margin: auto;
+    align-items: center;
 }
 
 /* ICONO DEL PERFIL DEL USUARIO EN LA NAVBAR */

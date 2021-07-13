@@ -1,5 +1,6 @@
 //IMPORTS
 import { fetch_wrapper } from "./helpers/fetch_wrapper.js";
+import { editar_repositorio } from "./repositorios.js";
 
 window.addEventListener('load',()=>{
     //OBTENER LOS DATOS DEL PERFIL DEL USUARIO
@@ -56,15 +57,33 @@ function dibujar_tarjetas_repositorios(repositorios) {
             //CUERPO DE LA TARJETA DEL REPOSITORIO
             let card_body_div = document.createElement('div');
             card_body_div.className = 'card-body';
+            //NOMBRE DEL REPOSITORIO
             let h5 = document.createElement('h5')
-            card_body_div.appendChild(h5);
             h5.innerText = repositorios[i].nombre;
+            card_body_div.appendChild(h5);
+            //DESCRIPCION DEL REPOSITORIO
             if(repositorios[i].descripcion){
                 let p = document.createElement('p')
                 p.innerText = repositorios[i].descripcion;
                 card_body_div.appendChild(p);
             }
+            //BOTON EDITAR REPOSITORIO
+            let button = document.createElement('button');
+            button.innerText = "Editar";
+            button.setAttribute("data-bs-toggle","modal");
+            button.setAttribute("data-bs-target","#modal-editar-repositorio");
+            //EVENTO DEL BOTON EDITAR REPOSITORIO
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                editar_repositorio(repositorios[i]);
+            })
+            card_body_div.appendChild(button);
+
             card_div.appendChild(card_body_div);
+            //EVENTO PARA VISUALIZAR EL REPOSITORIO
+            card_div.addEventListener('click', () => {
+                console.log("visualizar el repositorio", repositorios[i].id);
+            })
             col_div.appendChild(card_div);
             contenedor_tarjetas_repositorios.appendChild(col_div);
         }

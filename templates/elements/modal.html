@@ -76,3 +76,38 @@
         </div>
     </div>
 {%- endmacro %}
+
+{% macro modal_editar_repositorio() -%}
+    <div class="modal fade" id="modal-editar-repositorio"> 
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+                <div class="modal-body text-center">
+                    <h3>Editar repositorio</h3>
+                    <img id="previsualizacion-imagen-editar-repositorio" src="../static/assets/icons/repositorio.svg" onerror="this.src='../static/assets/icons/repositorio.svg'" style="width: 90px;" class="m-2">
+                    <form id="form-editar-repositorio">
+                        <div>
+                            <label for="nombre">Nombre del repositorio</label>
+                            <br>
+                            <input type="text" name="nombre" id="input-nombre-editar-repositorio" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="descripcion">Descripción (opcional)</label>
+                            <br>
+                            <input type="text" name="descripcion" id="input-descripcion-editar-repositorio" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="imagen">Nueva imagen del repositorio (opcional)</label>
+                            <br>
+                            <input type="file" accept="image/*" name="imagen" id="input-imagen-editar-repositorio" class="input-formulario"/>
+                        </div>
+                    </form>
+                </div>
+                <button id="boton-guardar-edicion-repositorio" class="mt-3 w-auto mx-auto boton-acento">Guardar edición</button>
+                <button id="boton-eliminar-repositorio" class="mt-3 mb-4 w-auto mx-auto boton-alerta">Eliminar repositorio</button>
+            </div>
+        </div>
+    </div>
+{%- endmacro %}

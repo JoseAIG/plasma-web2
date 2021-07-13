@@ -77,8 +77,12 @@ def perfil():
 def repositorio():
     if request.method == 'GET':
         return obtener_repositorios_usuario()
-    if request.method == 'POST':
+    elif request.method == 'POST':
         return crear_repositorio(request)
+    elif request.method == 'PUT':
+        return editar_repositorio(request)
+    elif request.method == 'DELETE':
+        return eliminar_repositorio(request)
 
 # ENDPOINT /usuario
 @app.route('/perfil-usuario', methods = ['GET'])

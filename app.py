@@ -1,4 +1,4 @@
-from flask import Flask, request, session, jsonify
+from flask import Flask, request, session
 from flask.helpers import url_for
 from flask.templating import render_template
 from flask_sqlalchemy import SQLAlchemy
@@ -88,8 +88,16 @@ def repositorio():
 # ENDPOINT /imagen
 @app.route('/imagen', methods = ['GET', 'POST', 'PUT', 'DELETE'])
 def imagen():
+    if request.method == 'GET':
+        return obtener_imagenes()
     if request.method == 'POST':
         return crear_imagen(request)
+
+# ENDPOINT /imagen/tag
+@app.route('/imagen/<tag>', methods = ['GET'])
+def imagen_tag(tag):
+    if request.method == 'GET':
+        return obtener_imagenes_tag(tag)
 
 # ENDPOINT /usuario
 @app.route('/perfil-usuario', methods = ['GET'])

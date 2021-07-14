@@ -64,6 +64,54 @@ body{
     padding: 0.5em;
 }
 
+/* ESTILO DE LAS TARJETAS DE LAS PUBLICACIONES */
+.tarjeta-publicacion {
+    font-family: 'Montserrat';
+    width: 35%;
+    margin: auto;
+    margin-bottom: 2em;
+    transition: none;
+}
+
+.tarjeta-publicacion:hover{
+    transform: none;
+}
+
+.tarjeta-publicacion .card-header{
+    background-color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.tarjeta-publicacion .card-body{
+    padding: 0px;
+}
+
+.tarjeta-publicacion .rounded-circle{
+    width: 15%;
+    margin-right: 0.5em;
+}
+
+.tarjeta-publicacion img{
+    width: 100%;
+    margin: 0px;
+    border-radius: 0px;
+}
+
+.tarjeta-publicacion p{
+    margin: 1em;
+}
+
+.contenedor-tags-publicacion{
+    border-top: 1px solid lightgray;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    width: 100%;
+    margin: 0px;
+    padding: 0.5em;
+}
+
 /* ESTILOS REFERENTES A LOS TAGS */
 .contenedor-tags{
     display: flex;
@@ -119,9 +167,17 @@ body{
     #imagen-perfil-usuario{
         width: 30%;
     }
+
+    .tarjeta-publicacion{
+        width: 60%;
+    }
 }
 @media (max-width: 500px) {  
     #imagen-perfil-usuario{
         width: 45%;
+    }
+
+    .tarjeta-publicacion{
+        width: 90%;
     }
 }

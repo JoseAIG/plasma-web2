@@ -10,7 +10,7 @@ class Repositorio(db.Model):
     fecha_creacion = db.Column(db.DateTime, default=datetime.utcnow)
     ruta_imagen_repositorio = db.Column(db.String(150), nullable=True)
     # RELACION UNO A MUCHOS CON IMAGENES, ON DELETE CASCADE
-    imagenes = db.relationship('Imagen', cascade="all,delete")
+    imagenes = db.relationship('Imagen', cascade="all,delete", backref="repositorio")
 
     # CONSTRUCTOR
     def __init__(self, id_usuario, nombre, descripcion, ruta_imagen_repositorio):

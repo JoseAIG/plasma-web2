@@ -3,6 +3,41 @@ import os, uuid, ast
 from app import db
 from models.imagen import Imagen
 
+# FUNCION PARA OBTENER LAS IMAGENES SUBIDAS
+def obtener_imagenes():
+    try:
+        # BUSCAR TODAS LAS IMAGENES 
+        imagenes = Imagen.query.all()
+
+        # RECORRER LAS IMAGENES, GENERANDO UNA LISTA PARA BRINDARLA COMO RESPUESTA
+        lista_imagenes = []
+        for imagen in imagenes:
+            datos_imagen = {'id':imagen.id, 'usuario':imagen.repositorio.usuario.usuario, 'ruta_imagen_perfil': imagen.repositorio.usuario.ruta_imagen_perfil, 'id_repositorio':imagen.id_repositorio, 'nombre_repositorio':imagen.repositorio.nombre, 'descripcion':imagen.descripcion, 'tags':imagen.tags ,'fecha_creacion':imagen.fecha_creacion.strftime("%d/%m/%Y"), 'ruta_imagen':imagen.ruta_imagen}
+            lista_imagenes.append(datos_imagen)
+
+        return {"imagenes":lista_imagenes, "status":200}, 200
+    except Exception as e:
+        print(e)
+        return {"resultado":"No se pudieron obtener las imagenes", "status":500}, 500
+
+# FUNCION  PARA OBTENER IMAGENES CON UN TAG ESPECIFICO
+def obtener_imagenes_tag(tag):
+    try:
+        # BUSCAR TODAS LAS IMAGENES QUE POSEAN ESE TAG EN EL ARREGLO DE TAGS
+        imagenes_tag = Imagen.query.filter(Imagen.tags.any(tag)).all()
+
+        # RECORRER LOS RESULTADOS DE LAS IMAGENES, GENERANDO UNA LISTA DE IMAGENES PARA BRINDAR RESPUESTA
+        lista_imagenes_tag = []
+        for imagen in imagenes_tag:
+            datos_imagen = {'id':imagen.id, 'id_repositorio':imagen.id_repositorio, 'descripcion':imagen.descripcion, 'fecha_creacion':imagen.fecha_creacion.strftime("%d/%m/%Y"), 'ruta_imagen':imagen.ruta_imagen}
+            lista_imagenes_tag.append(datos_imagen)
+
+        return {"imagenes_tag":lista_imagenes_tag, "status":200}, 200
+    except Exception as e:
+        print(e)
+        return {"resultado":"No se pudieron obtener las imagenes", "status":500}, 500
+
+
 # FUNCION PARA CREAR UNA NUEVA IMAGEN
 def crear_imagen(request):
     try:

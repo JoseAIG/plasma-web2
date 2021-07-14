@@ -1,6 +1,6 @@
 //IMPORTS
 import { fetch_wrapper } from "./helpers/fetch_wrapper.js";
-import { editar_repositorio } from "./repositorios.js";
+import { editar_repositorio, dibujar_contenido_repositorio } from "./repositorios.js";
 
 window.addEventListener('load',()=>{
     //OBTENER LOS DATOS DEL PERFIL DEL USUARIO
@@ -81,8 +81,12 @@ function dibujar_tarjetas_repositorios(repositorios) {
 
             card_div.appendChild(card_body_div);
             //EVENTO PARA VISUALIZAR EL REPOSITORIO
+            card_div.style.cursor = "pointer";
+            card_div.setAttribute("data-bs-toggle", "modal");
+            card_div.setAttribute("data-bs-target", "#modal-visualizar-repositorio");
             card_div.addEventListener('click', () => {
-                console.log("visualizar el repositorio", repositorios[i].id);
+                //DIBUJAR EL CONTENIDO DEL REPOSITORIO (IMAGENES QUE CONTIENE E INFORMACION) (FUNCION EN "repositorios.js")
+                dibujar_contenido_repositorio(repositorios[i].id);
             })
             col_div.appendChild(card_div);
             contenedor_tarjetas_repositorios.appendChild(col_div);

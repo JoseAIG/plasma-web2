@@ -11,8 +11,9 @@ class Imagen(db.Model):
     ruta_imagen = db.Column(db.String(150), nullable=False)
 
     # CONSTRUCTOR
-    def __init__(self, id_repositorio, descripcion, tags, ruta_imagen):
+    def __init__(self, id_repositorio, descripcion, tags, ruta_imagen, fecha_creacion):
         self.id_repositorio = id_repositorio
         self.descripcion = descripcion
         self.tags = tags
         self.ruta_imagen = ruta_imagen
+        self.fecha_creacion = datetime.strptime(fecha_creacion,"%d/%m/%Y")

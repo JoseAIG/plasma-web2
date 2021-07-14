@@ -1,5 +1,6 @@
 //IMPORTS
 import { fetch_wrapper } from "./helpers/fetch_wrapper.js";
+import { establecer_datos_crear_imagen } from "./imagenes.js";
 
 //FUNCIONALIDAD PARA LA PREVISUALIZACION DE LA IMAGEN AL MOMENTO DE CREAR UN REPOSITORIO
 var previsualizacion_imagen_crear_repositorio = document.getElementById("previsualizacion-imagen-crear-repositorio");
@@ -94,4 +95,90 @@ function eliminar_repositorio(id) {
             })
         }
     }
+}
+
+//FUNCION PARA DIBUJAR LAS IMAGENES DE LOS REPOSITORIOS DENTRO DEL MODAL VISUALIZAR REPOSITORIO
+var nombre_visualizar_repositorio = document.getElementById("nombre-visualizar-repositorio");
+var previsualizacion_imagen_visualizar_repositorio = document.getElementById("previsualizacion-imagen-visualizar-repositorio");
+var descripcion_visualizar_repositorio = document.getElementById("descripcion-visualizar-repositorio");
+var contenedor_imagenes_visualizar_repositorio = document.getElementById("contenedor-imagenes-visualizar-repositorio");
+export function dibujar_contenido_repositorio(id) {
+
+    //LIMPIAR LOS VALORES DEL REPOSITORIO
+    nombre_visualizar_repositorio.innerText = "";
+    previsualizacion_imagen_visualizar_repositorio.src = "/static/assets/icons/repositorio.svg";
+    descripcion_visualizar_repositorio.innerText = "";
+    contenedor_imagenes_visualizar_repositorio.innerHTML = "";
+
+    //SOLICITAR LOS DATOS DEL REPOSITORIO Y DIBUJAR LA INFORMACION
+    fetch_wrapper.get('repositorio/'+id).then(data => {
+        let repositorio = data.repositorio
+        let imagenes_repositorio = data.imagenes_repositorio
+        //ESTABLECER LOS VALORES BASICOS DEL REPOSITORIO
+        nombre_visualizar_repositorio.innerText = repositorio.nombre;
+        previsualizacion_imagen_visualizar_repositorio.src = repositorio.ruta_imagen_repositorio;
+        descripcion_visualizar_repositorio.innerText = repositorio.descripcion;
+
+        //COMPROBAR QUE EL REPOSITORIO POSEA IMAGENES
+        if(imagenes_repositorio.length){
+            //DIBUJAR LAS IMAGENES DEL REPOSITORIO
+            imagenes_repositorio.forEach(imagen => {
+                let div = document.createElement('div');
+                div.className = 'col'
+                let div_card = document.createElement('div');
+                div_card.className = 'card tarjeta-imagen';
+                //CUERPO DE LA TARJETA
+                let div_body = document.createElement('div');
+                div_body.className = 'card-body';
+                let img = document.createElement('img'); //IMAGEN
+                img.src = imagen.ruta_imagen;
+                img.onerror = () => {
+                    img.src = "/static/assets/icons/imagen.svg";
+                }
+                div_body.appendChild(img);
+                let p = document.createElement('p'); //DESCRIPCION
+                p.innerText = imagen.descripcion;
+                div_body.appendChild(p);
+                div_card.appendChild(div_body);
+                //CONTENEDOR DE TAGS DE LA IMAGEN
+                let div_tags = document.createElement('div');
+                div_tags.className = "contenedor-tags-publicacion";
+                imagen.tags.forEach(tag =>{
+                    let div_tag = document.createElement('div');
+                    div_tag.className = "tag";
+                    let span = document.createElement('span');
+                    span.textContent = tag;
+                    div_tag.appendChild(span);
+                    div_tags.appendChild(div_tag)
+                })
+                div_card.appendChild(div_tags);
+                //FOOTER DE LA TARJETA DE LA IMAGEN
+                let div_footer = document.createElement('div');
+                div_footer.className = "card-footer text-muted";
+                div_footer.innerText = imagen.fecha_creacion;
+                div_card.appendChild(div_footer);
+
+                div.appendChild(div_card);
+                contenedor_imagenes_visualizar_repositorio.appendChild(div);
+            })
+        }else{
+            //SI NO SE TIENEN REPOSITORIOS, MOSTRAR UN MENSAJE
+            let h4 = document.createElement('h4');
+            h4.className = 'text-center mx-auto mt-5 w-100';
+            h4.innerText = 'Parece que aun no tienes imagenes en este repositorio... ¡Sube alguna!';
+            contenedor_imagenes_visualizar_repositorio.appendChild(h4);
+            //BOTON PARA CREAR UN NUEVO REPOSITORIO
+            let button = document.createElement('button');
+            button.className = "boton-acento mx-auto w-auto";
+            button.innerText = "Nueva imagen";
+            button.setAttribute("data-bs-toggle","modal");
+            button.setAttribute("data-bs-target","#modal-crear-imagen");
+            //AL PULSAR EL BOTON CREAR NUEVA IMAGEN EN LA VISTA DE REPOSITORIO SIN IMAGEN, ESTABLECER LOS DATOS DE LA IMAGEN
+            button.onclick = () => {
+                establecer_datos_crear_imagen();
+            }
+            contenedor_imagenes_visualizar_repositorio.appendChild(button);
+        }
+
+    })
 }

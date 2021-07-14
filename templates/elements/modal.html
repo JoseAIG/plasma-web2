@@ -77,6 +77,26 @@
     </div>
 {%- endmacro %}
 
+{% macro modal_visualizar_repositorio() -%}
+    <div class="modal fade" id="modal-visualizar-repositorio"> 
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+                <div class="modal-body text-center">
+                    <h2 id="nombre-visualizar-repositorio"></h3>
+                    <img id="previsualizacion-imagen-visualizar-repositorio" src="../static/assets/icons/repositorio.svg" onerror="this.src='../static/assets/icons/repositorio.svg'" style="width: 90px;" class="m-2 w-25">
+                    <h5 id="descripcion-visualizar-repositorio"></h5>
+                    <hr>
+                    <h4 class="mb-4">Imagenes</h4>
+                    <div id="contenedor-imagenes-visualizar-repositorio" class="row row-cols-1 row-cols-md-3 g-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endmacro %}
+
 {% macro modal_editar_repositorio() -%}
     <div class="modal fade" id="modal-editar-repositorio"> 
         <div class="modal-dialog modal-dialog-centered">

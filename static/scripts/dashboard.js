@@ -57,7 +57,7 @@ function dibujar_imagenes_publicaciones(imagenes) {
         let img = document.createElement('img');
         img.src = imagen.ruta_imagen;
         img.onerror = () => {
-            img_icono.src = 'static/assets/icons/imagen.svg'
+            img.src = 'static/assets/icons/imagen.svg'
         }
         div_body.appendChild(img);
         let p = document.createElement('p');

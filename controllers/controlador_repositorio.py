@@ -2,6 +2,7 @@ from flask import current_app, session
 import os, uuid
 from app import db
 from models.repositorio import Repositorio
+from models.imagen import Imagen
 
 # FUNCION PARA OBTENER LOS REPOSITORIOS DEL USUARIO
 def obtener_repositorios_usuario():
@@ -18,6 +19,32 @@ def obtener_repositorios_usuario():
     except Exception as e:
         print(e)
         return {"resultado":"No se pudieron obtener los repositorios", "status":500}, 500
+
+# FUNCION PARA OBTENER LOS DATOS DE UN REPOSITORIO ESPECIFICO SEGUN SU ID
+def obtener_datos_repositorio(id):
+    try:
+        # CONSULTAR EL REPOSITORIO SOLICITADO Y COMPROBAR QUE EXISTA PARA BRINDAR LA RESPUESTA CON LOS DATOS
+        repositorio = Repositorio.query.get(id)
+
+        if repositorio is None:
+            return {"resultado":"No existe ese repositorio", "status":404}, 404
+        else:
+            # CONSTRUIR UNA LISTA CON LOS DATOS DEL REPOSITORIO
+            datos_repositorio = {'id':repositorio.id, 'id_usuario':repositorio.id_usuario, 'nombre':repositorio.nombre, 'descripcion':repositorio.descripcion, 'fecha_creacion':repositorio.fecha_creacion.strftime("%d/%m/%Y"), 'ruta_imagen_repositorio':repositorio.ruta_imagen_repositorio}
+
+            # CONSULTAR LAS IMAGENES QUE PERTENECEN AL REPOSITORIO SOLICITADO, ORDENANDOLAS EN ORDEN DESCENDIENTE DE ID (PRIMERO LAS MAS RECIENTES)
+            imagenes_repositorio = Imagen.query.filter_by(id_repositorio = id).order_by(Imagen.id.desc()).all()
+            # RECORRER LAS IMAGENES DEL REPOSITORIO PARA RESPONDER CON UNA LISTA
+            lista_imagenes_repositorio = []
+            for imagen in imagenes_repositorio:
+                datos_imagen = {'id':imagen.id, 'id_repositorio':imagen.id_repositorio, 'id_usuario':imagen.repositorio.id_usuario, 'descripcion':imagen.descripcion, 'tags':imagen.tags, 'fecha_creacion':imagen.fecha_creacion.strftime("%d/%m/%Y"), 'ruta_imagen':imagen.ruta_imagen}
+                lista_imagenes_repositorio.append(datos_imagen)
+
+            return {"repositorio":datos_repositorio, "imagenes_repositorio":lista_imagenes_repositorio, "status":200}, 200
+
+    except Exception as e:
+        print(e)
+        return {"resultado":"Error al obtener los datos del repositorio", "status":500}, 500
 
 # FUNCION PARA CREAR UN NUEVO REPOSITORIO
 def crear_repositorio(request):

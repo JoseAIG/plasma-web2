@@ -112,6 +112,26 @@ body{
     padding: 0.5em;
 }
 
+/* ESTILO DE LAS TARJETAS DE LAS IMAGENES EN LA VISTA DE REPOSITORIO */
+.tarjeta-imagen{
+    text-align: left;
+}
+
+.tarjeta-imagen img{
+    width: 100%;
+    margin: 0px;
+    border-radius: 0px;
+}
+
+.tarjeta-imagen .card-body{
+    padding: 0px;
+    padding-top: 1em;
+}
+
+.tarjeta-imagen p{
+    margin: 1em;
+}
+
 /* ESTILOS REFERENTES A LOS TAGS */
 .contenedor-tags{
     display: flex;

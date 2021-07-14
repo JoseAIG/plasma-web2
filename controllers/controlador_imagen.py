@@ -6,8 +6,8 @@ from models.imagen import Imagen
 # FUNCION PARA OBTENER LAS IMAGENES SUBIDAS
 def obtener_imagenes():
     try:
-        # BUSCAR TODAS LAS IMAGENES 
-        imagenes = Imagen.query.all()
+        # BUSCAR TODAS LAS IMAGENES EN ORDEN DESCENDENTE POR ID
+        imagenes = Imagen.query.order_by(Imagen.id.desc()).all()
 
         # RECORRER LAS IMAGENES, GENERANDO UNA LISTA PARA BRINDARLA COMO RESPUESTA
         lista_imagenes = []
@@ -37,7 +37,6 @@ def obtener_imagenes_tag(tag):
         print(e)
         return {"resultado":"No se pudieron obtener las imagenes", "status":500}, 500
 
-
 # FUNCION PARA CREAR UNA NUEVA IMAGEN
 def crear_imagen(request):
     try:
@@ -46,6 +45,7 @@ def crear_imagen(request):
         imagen = request.files['imagen']
         descripcion = request.form['descripcion']
         tags = request.form['tags']
+        fecha_creacion = request.form['fecha_creacion']
         
         # PARSEAR LOS TAGS RECIBIDOS COMO UN ARREGLO EN STRING A UN ARREGLO PROPIAMENTE
         tags = ast.literal_eval(tags)
@@ -61,7 +61,7 @@ def crear_imagen(request):
             imagen.save(ruta_imagen)
 
         # INSTANCIAR UN MODELO IMAGEN Y AGREGARLO A LA BASE DE DATOS
-        nueva_imagen = Imagen(repositorio, descripcion, tags, ruta_imagen)
+        nueva_imagen = Imagen(repositorio, descripcion, tags, ruta_imagen, fecha_creacion)
         db.session.add(nueva_imagen)
         db.session.commit()
         return {"resultado":"Imagen creada exitosamente", "status":200}, 200

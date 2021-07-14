@@ -85,6 +85,12 @@ def repositorio():
     elif request.method == 'DELETE':
         return eliminar_repositorio(request)
 
+# ENDPOINT /repositorio/id
+@app.route('/repositorio/<id>', methods = ['GET'])
+def repositorio_id(id):
+    if request.method == 'GET':
+        return obtener_datos_repositorio(id)
+
 # ENDPOINT /imagen
 @app.route('/imagen', methods = ['GET', 'POST', 'PUT', 'DELETE'])
 def imagen():

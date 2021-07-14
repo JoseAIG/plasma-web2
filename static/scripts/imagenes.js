@@ -12,7 +12,7 @@ input_imagen_crear_imagen.onchange = (e) => {
 var link_nueva_imagen = document.getElementById("link-nueva-imagen");
 var input_descripcion_crear_imagen = document.getElementById("input-descripcion-crear-imagen");
 var select_repositorio_crear_imagen = document.getElementById("select-repositorio-crear-imagen");
-function establecer_datos_crear_imagen() {
+export function establecer_datos_crear_imagen() {
     //LIMPIAR LA IMAGEN DE PREVISUALIZACION
     previsualizacion_imagen_crear_imagen.src = "/static/assets/icons/imagen.svg";
     //LIMPIAR EL INPUT TYPE FILE
@@ -108,6 +108,9 @@ boton_guardar_imagen.onclick = () => {
     let datos_form_crear_imagen = new FormData(form_crear_imagen);
     //INSERTAR LOS TAGS DE LA IMAGEN EN LOS DATOS DEL FORMULARIO
     datos_form_crear_imagen.append('tags',JSON.stringify(tags_imagen));
+    //INSERTAR LA FECHA DE CREACION ACTUAL DE LA IMAGEN SEGUN EL BROWSER
+    let fecha_actual = new Date();
+    datos_form_crear_imagen.append('fecha_creacion', fecha_actual.getDate()+"/"+(fecha_actual.getMonth()+1)+"/"+fecha_actual.getFullYear()); 
     //COMPROBAR QUE LOS CAMPOS SEAN VALIDOS PARA REALIZAR LA SOLICITUD
     if(datos_form_crear_imagen.get('imagen').name == ""){
         alert("Debe insertar una imagen.");

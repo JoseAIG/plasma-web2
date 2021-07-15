@@ -40,7 +40,7 @@ def obtener_datos_repositorio(id):
                 datos_imagen = {'id':imagen.id, 'id_repositorio':imagen.id_repositorio, 'id_usuario':imagen.repositorio.id_usuario, 'descripcion':imagen.descripcion, 'tags':imagen.tags, 'fecha_creacion':imagen.fecha_creacion.strftime("%d/%m/%Y"), 'ruta_imagen':imagen.ruta_imagen}
                 lista_imagenes_repositorio.append(datos_imagen)
 
-            return {"repositorio":datos_repositorio, "imagenes_repositorio":lista_imagenes_repositorio, "status":200}, 200
+            return {"id_usuario":session['id'], "repositorio":datos_repositorio, "imagenes_repositorio":lista_imagenes_repositorio, "status":200}, 200
 
     except Exception as e:
         print(e)

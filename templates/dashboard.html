@@ -2,7 +2,7 @@
 {% from 'elements/navbar.html' import navbar %}
 {% from 'elements/modal.html' import modal_editar_perfil %}
 {% from 'elements/modal.html' import modal_crear_repositorio %}
-{% from 'elements/modal.html' import modal_visualizar_repositorio, modal_editar_repositorio, modal_crear_imagen %}
+{% from 'elements/modal.html' import modal_visualizar_repositorio, modal_editar_repositorio, modal_crear_imagen, modal_editar_imagen %}
 
 {% block styles %}
     <link rel="stylesheet" href="../static/styles/dashboard.css">
@@ -73,6 +73,9 @@
             <div id="div-contenido-principal" class="col py-3">
                 {% block contenido %}
                     <h4 class="text-center mt-2 mb-4">Las más recientes publicaciones</h4>
+                    <div id="carga-imagenes-dashboard" class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status"></div>
+                    </div>
                 {% endblock %}
             </div>
         </div>
@@ -87,4 +90,6 @@
     {{ modal_editar_repositorio() }}
     <!-- MODAL CREAR IMAGEN -->
     {{ modal_crear_imagen() }}
+    <!-- MODAL EDITAR IMGAEN -->
+    {{ modal_editar_imagen() }}
 {% endblock %}

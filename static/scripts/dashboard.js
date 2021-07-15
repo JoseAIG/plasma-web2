@@ -34,6 +34,10 @@ link_cerrar_sesion.onclick = () => {
 var div_contenido_principal = document.getElementById("div-contenido-principal");
 function dibujar_imagenes_publicaciones(imagenes) {
 
+    //OCULTAR EL SPINNER DE CARGA
+    document.getElementById("carga-imagenes-dashboard").className = "d-none";
+
+    //RECORRER LAS IMAGENES CREANDO LOS ELEMENTOS PARA FORMAR LAS TARJETAS DE INICIO
     imagenes.forEach(imagen =>{
         //TARJETA
         let div = document.createElement('div');

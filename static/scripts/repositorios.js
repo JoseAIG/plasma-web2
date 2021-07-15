@@ -1,6 +1,6 @@
 //IMPORTS
 import { fetch_wrapper } from "./helpers/fetch_wrapper.js";
-import { establecer_datos_crear_imagen } from "./imagenes.js";
+import { establecer_datos_crear_imagen, establecer_contenido_editar_imagen } from "./imagenes.js";
 
 //FUNCIONALIDAD PARA LA PREVISUALIZACION DE LA IMAGEN AL MOMENTO DE CREAR UN REPOSITORIO
 var previsualizacion_imagen_crear_repositorio = document.getElementById("previsualizacion-imagen-crear-repositorio");
@@ -108,12 +108,17 @@ export function dibujar_contenido_repositorio(id) {
     nombre_visualizar_repositorio.innerText = "";
     previsualizacion_imagen_visualizar_repositorio.src = "/static/assets/icons/repositorio.svg";
     descripcion_visualizar_repositorio.innerText = "";
-    contenedor_imagenes_visualizar_repositorio.innerHTML = "";
+    //MOSTRAR SPINNER DE CARGA
+    contenedor_imagenes_visualizar_repositorio.innerHTML = '<div class="spinner-border" role="status"></div>';
 
     //SOLICITAR LOS DATOS DEL REPOSITORIO Y DIBUJAR LA INFORMACION
     fetch_wrapper.get('repositorio/'+id).then(data => {
-        let repositorio = data.repositorio
-        let imagenes_repositorio = data.imagenes_repositorio
+        //LIMPIAR CONTENEDOR DE IMAGENES
+        contenedor_imagenes_visualizar_repositorio.innerHTML = "";
+        //OBTENER LOS DATOS DE LA RESPUESTA
+        let id_usuario = data.id_usuario;
+        let repositorio = data.repositorio;
+        let imagenes_repositorio = data.imagenes_repositorio;
         //ESTABLECER LOS VALORES BASICOS DEL REPOSITORIO
         nombre_visualizar_repositorio.innerText = repositorio.nombre;
         previsualizacion_imagen_visualizar_repositorio.src = repositorio.ruta_imagen_repositorio;
@@ -154,8 +159,30 @@ export function dibujar_contenido_repositorio(id) {
                 div_card.appendChild(div_tags);
                 //FOOTER DE LA TARJETA DE LA IMAGEN
                 let div_footer = document.createElement('div');
-                div_footer.className = "card-footer text-muted";
+                div_footer.className = "card-footer text-muted d-flex";
                 div_footer.innerText = imagen.fecha_creacion;
+                //SI EL DUEÑO DEL REPOSITORIO, POR ENDE DE LA IMAGEN, ES EL QUE VISUALIZA, AGREGAR EL BOTON EDITAR IMAGEN
+                if(id_usuario == imagen.id_usuario){
+                    let a = document.createElement('a');
+                    a.setAttribute('data-bs-toggle', 'modal');
+                    a.setAttribute('data-bs-dismiss', 'modal');
+                    a.href = "#modal-editar-imagen"
+                    a.style.marginLeft = "auto";
+                    let img_editar = document.createElement('img');
+                    img_editar.src = "/static/assets/icons/editar.svg";
+                    img_editar.alt = "editar";
+                    a.appendChild(img_editar);
+                    div_footer.appendChild(a);
+                    
+                    //div_footer.innerHTML += '<a data-bs-toggle="modal" data-bs-dismiss="modal" href="#modal-editar-imagen" style="margin-left: auto"><img src="/static/assets/icons/editar.svg" alt="editar"></a>'
+
+                    //DIBUJAR EL CONTENIDO DEL MODAL PARA EDITAR LA IMAGEN CUANDO SE PULSA EL ANCHOR TAG (LINK EDITAR)
+                    console.log("Antes del evento click: ", imagen, imagen.tags);
+                    a.addEventListener('click', () => {
+                        console.log("me vais a dibujar esta imafen ve: ", imagen, imagen.tags);
+                        establecer_contenido_editar_imagen(imagen);
+                    })
+                }
                 div_card.appendChild(div_footer);
 
                 div.appendChild(div_card);

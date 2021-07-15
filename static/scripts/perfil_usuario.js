@@ -33,6 +33,8 @@ function dibujar_datos_usuario(datos) {
 //FUNCION PARA DUBUJAR LAS TARJETAS DE LOS REPOSITORIOS EN EL PERFIL DEL USUARIO
 var contenedor_tarjetas_repositorios = document.getElementById("contenedor-tarjetas-repositorios");
 function dibujar_tarjetas_repositorios(repositorios) {
+    //OCULTAR EL SPINNER DE CARGA
+    document.getElementById('carga-repositorios-perfil').className = 'd-none';
     //LIMPIAR EL CONTENEDOR DE TARJETAS DE REPOSITORIOS
     contenedor_tarjetas_repositorios.innerHTML = '';
     //COMPROBAR SI EL USUARIO POSEE REPOSITORIOS

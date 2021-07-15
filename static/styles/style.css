@@ -107,6 +107,14 @@ select{
     margin-bottom: 1em;
 }
 
+/* ESTILO DEL SPINNER DE CARGA */
+.spinner-border{
+    color: #9575cd;
+    margin: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
 
 /* ESTILO DE LOS MODALS */
 .modal-content{

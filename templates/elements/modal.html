@@ -174,3 +174,47 @@
         </div>
     </div>
 {%- endmacro %}
+
+{% macro modal_editar_imagen() -%}
+    <div class="modal fade" id="modal-editar-imagen" data-bs-backdrop="static" data-bs-keyboard="false"> 
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="boton-volver" data-bs-toggle="modal" data-bs-target="#modal-visualizar-repositorio" data-bs-dismiss="modal">Volver</button>
+                </div>
+                <div class="modal-body text-center">
+                    <h3>Editar imagen</h3>
+                    <img id="previsualizacion-imagen-editar-imagen" src="../static/assets/icons/imagen.svg" onerror="this.src='../static/assets/icons/imagen.svg'" style="width: 90px;" class="m-2">
+                    <form id="form-editar-imagen">
+                        <div>
+                            <label for="imagen">Imagen</label>
+                            <br>
+                            <input type="file" accept="image/*" name="imagen" id="input-imagen-editar-imagen" class="input-formulario"/>
+                        </div>
+                        <div>
+                            <label for="descripcion">Descripción (opcional)</label>
+                            <br>
+                            <input type="text" name="descripcion" id="input-descripcion-editar-imagen" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="repositorio">Repositorio</label>
+                            <br>
+                            <select name="repositorio" id="select-repositorio-editar-imagen">
+                                <option value="">Seleccione un repositorio</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Tags de la imagen</label>
+                            <br>
+                            <div id="contenedor-tags-editar-imagen" class="contenedor-tags">
+                                <input type="text" id="input-tags-editar-imagen" autocomplete="off" placeholder="Nuevo tag">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <button id="boton-guardar-editar-imagen" class="mt-3 w-auto mx-auto boton-acento">Guardar</button>
+                <button id="boton-eliminar-imagen" class="mt-3 mb-4 w-auto mx-auto boton-alerta">Eliminar imagen</button>
+            </div>
+        </div>
+    </div>
+{%- endmacro %}

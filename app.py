@@ -98,6 +98,10 @@ def imagen():
         return obtener_imagenes()
     if request.method == 'POST':
         return crear_imagen(request)
+    if request.method == 'PUT':
+        return editar_imagen(request)
+    if request.method == 'DELETE':
+        return eliminar_imagen(request)
 
 # ENDPOINT /imagen/tag
 @app.route('/imagen/<tag>', methods = ['GET'])

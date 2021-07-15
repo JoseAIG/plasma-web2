@@ -25,8 +25,13 @@ body{
 }
 
 /* PREVISUALIZACION DE LA IMAGEN DEL REPOSITORIO EN EL MODAL DE CREACION Y EDICION*/
-#previsualizacion-imagen-crear-repositorio, #previsualizacion-imagen-editar-repositorio, #previsualizacion-imagen-crear-imagen{
+#previsualizacion-imagen-crear-repositorio, #previsualizacion-imagen-editar-repositorio{
     border-radius: 15px;
+}
+
+#previsualizacion-imagen-crear-imagen, #previsualizacion-imagen-editar-imagen{
+    border-radius: 15px;
+    width: 40%;
 }
 
 .card{

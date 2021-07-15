@@ -71,7 +71,6 @@ function limpiar_tags() {
 
 //FUNCIONALIDAD PARA DIBUJAR LOS TAGS EN EL CONTENEDOR DE TAGS
 function dibujar_tags(tags, contenedor) {
-    console.log(tags);
     //LIMPIAR LA LISTA DE TAGS
     limpiar_tags();
     //HACER UNA COPIA DEL ARREGLO DE LOS TAGS Y RECORRERLO DE REVERSA DIBUJAR LOS TAGS ADECUADAMENTE
@@ -162,9 +161,12 @@ export function establecer_contenido_editar_imagen(imagen) {
     tags_editar_imagen = [...imagen.tags];
     //DIBUJAR LOS TAGS DE LA IMAGEN EN EL CONTENEDOR DE TAGS
     dibujar_tags(tags_editar_imagen, contenedor_tags_editar_imagen);
+    //ESTABLECER LA FUNCIONALIDAD DE EDICION DE IMAGEN Y ELIMINACION (PASANDO SU ID PARA PODER REALIZAR LAS OPERACIONES)
+    editar_imagen(imagen.id);
+    eliminar_imagen(imagen.id);
 }
 
-//FUNCIONALIDAD PARA AGREGAR TAGS A LA IMAGEN QUE SE ESTÁ EDITANDO
+//EVENTO FUNCIONALIDAD PARA AGREGAR TAGS A LA IMAGEN QUE SE ESTÁ EDITANDO
 var tags_editar_imagen = []; //ARREGLO QUE CONTIENE LOS TAGS DE LA IMAGEN A EDITAR
 input_tags_editar_imagen.onkeyup = (e) => {
     //OBTENER EL TEXTO DEL TAG DE LA IMAGEN
@@ -182,6 +184,49 @@ input_tags_editar_imagen.onkeyup = (e) => {
             dibujar_tags(tags_editar_imagen, contenedor_tags_editar_imagen);
             //LIMPIAR EL VALOR DEL INPUT TYPE TEXT
             input_tags_editar_imagen.value = "";
+        }
+    }
+}
+
+//FUNCIONALIDAD PARA EDITAR LOS DATOS DE UNA IMAGEN
+var form_editar_imagen = document.getElementById("form-editar-imagen");
+var boton_guardar_editar_imagen = document.getElementById("boton-guardar-editar-imagen");
+function editar_imagen(id) {
+    boton_guardar_editar_imagen.onclick = () => {
+        //OBTENER LOS DATOS DEL FORM DATA EDITAR IMAGEN
+        let datos_form_editar_imagen = new FormData(form_editar_imagen);
+        //INCLUIR EL ID DE LA IMAGEN EN LOS DATOS DEL FORM DATA
+        datos_form_editar_imagen.append('id',id);
+        //INCLUIR LOS TAGS DE LA IMAGEN EDITADA EN LOS DATOS DEL FORM DATA A ENVIAR
+        datos_form_editar_imagen.append('tags',JSON.stringify(tags_editar_imagen));
+        //COMPROBAR QUE LOS CAMPOS SEAN VALIDOS PARA REALIZAR LA PETICION
+        if(datos_form_editar_imagen.get('descripcion').length > 60){
+            alert("Ingrese una descripcion con maximo 60 caracteres.");
+        }
+        else if(datos_form_editar_imagen.get('repositorio') == ""){
+            alert("Seleccione un repositorio donde se guardara la imagen");
+        }else{
+            fetch_wrapper.put('imagen',datos_form_editar_imagen).then(data => {
+                alert(data.resultado);
+                if(data.status == 200){
+                    window.open("/perfil-usuario","_self");
+                }
+            })
+        }
+    }   
+}
+
+//FUNCIONALIDAD PARA ELIMINAR UNA IMAGEN
+var boton_eliminar_imagen = document.getElementById("boton-eliminar-imagen");
+function eliminar_imagen(id) {
+    boton_eliminar_imagen.onclick = () => {
+        if(confirm("¿Desea eliminar esta imagen?")){
+            fetch_wrapper.delete('imagen',{id:id}).then(data => {
+                alert(data.resultado);
+                if (data.status == 200){
+                    window.open("/perfil-usuario","_self");
+                }
+            })
         }
     }
 }

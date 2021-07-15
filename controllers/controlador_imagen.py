@@ -68,3 +68,58 @@ def crear_imagen(request):
     except Exception as e:
         print(e)
         return {"resultado":"No se pudo crear la imagen", "status":500}, 500
+
+# FUNCION PARA EDITAR UNA IMAGEN YA EXISTENTE
+def editar_imagen(request):
+    try:
+        # OBTENER LOS DATOS DE LA PETICION
+        id = request.form['id']
+        descripcion = request.form['descripcion']
+        repositorio = request.form['repositorio']
+        tags = request.form['tags']
+
+        # PARSEAR LOS TAGS RECIBIDOS COMO UN ARREGLO EN STRING A UN ARREGLO PROPIAMENTE
+        tags = ast.literal_eval(tags)
+
+        # FLAG PARA CONOCER SI SE REALIZO UN CAMBIO
+        cambio_realizado = False
+
+        # OBTENER EL REGISTRO DE LA IMAGEN EN LA BASE DE DATOS
+        imagen = Imagen.query.get(id)
+
+        # COMPROBAR SI LA DESCRIPCION FUE CAMBIADA
+        if imagen.descripcion != descripcion:
+            imagen.descripcion = descripcion
+            cambio_realizado = True
+        # COMPROBAR SI EL REPOSITORIO FUE CAMBIADO
+        if imagen.repositorio != repositorio:
+            imagen.id_repositorio = repositorio
+            cambio_realizado = True
+        # COMPROBAR SI SE HAN CAMBIADO LOS TAGS DE LA IMAGEN
+        if imagen.tags != tags:
+            print("tags cambiados" + str(tags))
+            imagen.tags = tags
+            cambio_realizado = True
+
+        # HECER COMMIT DE LOS CAMBIOS A LA DB DE HABERSE REALIZADO UN CAMBIO
+        if cambio_realizado:
+            db.session.commit()
+            return {"resultado":"Imagen editada exitosamente", "status":200}, 200
+        else:
+            return {'status':400, 'resultado':"Los datos brindados son los mismos que los actuales"}, 400
+
+    except Exception as e:
+        print(e)
+        return {"resultado":"No se pudo editar la imagen", "status":500}, 500
+
+# FUNCION PARA ELIMINAR UNA IMAGEN
+def eliminar_imagen(request):
+    try:
+        # OBTENER EL REGISTRO DE LA IMAGEN EN LA BASE DE DATOS Y ELIMINARLO
+        imagen = Imagen.query.get(request.json['id'])
+        db.session.delete(imagen)
+        db.session.commit()
+        return {"resultado":"Imagen eliminada exitosamente", "status":200}, 200
+    except Exception as e:
+        print(e)
+        return {"resultado":"No se pudo eliminar la imagen", "status":500}, 500

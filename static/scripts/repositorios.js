@@ -177,9 +177,7 @@ export function dibujar_contenido_repositorio(id) {
                     //div_footer.innerHTML += '<a data-bs-toggle="modal" data-bs-dismiss="modal" href="#modal-editar-imagen" style="margin-left: auto"><img src="/static/assets/icons/editar.svg" alt="editar"></a>'
 
                     //DIBUJAR EL CONTENIDO DEL MODAL PARA EDITAR LA IMAGEN CUANDO SE PULSA EL ANCHOR TAG (LINK EDITAR)
-                    console.log("Antes del evento click: ", imagen, imagen.tags);
                     a.addEventListener('click', () => {
-                        console.log("me vais a dibujar esta imafen ve: ", imagen, imagen.tags);
                         establecer_contenido_editar_imagen(imagen);
                     })
                 }
@@ -189,7 +187,7 @@ export function dibujar_contenido_repositorio(id) {
                 contenedor_imagenes_visualizar_repositorio.appendChild(div);
             })
         }else{
-            //SI NO SE TIENEN REPOSITORIOS, MOSTRAR UN MENSAJE
+            //SI NO SE TIENEN IMAGENES EN EL REPOSITORIO, MOSTRAR UN MENSAJE
             let h4 = document.createElement('h4');
             h4.className = 'text-center mx-auto mt-5 w-100';
             h4.innerText = 'Parece que aun no tienes imagenes en este repositorio... ¡Sube alguna!';
@@ -199,6 +197,7 @@ export function dibujar_contenido_repositorio(id) {
             button.className = "boton-acento mx-auto w-auto";
             button.innerText = "Nueva imagen";
             button.setAttribute("data-bs-toggle","modal");
+            button.setAttribute("data-bs-dismiss","modal");
             button.setAttribute("data-bs-target","#modal-crear-imagen");
             //AL PULSAR EL BOTON CREAR NUEVA IMAGEN EN LA VISTA DE REPOSITORIO SIN IMAGEN, ESTABLECER LOS DATOS DE LA IMAGEN
             button.onclick = () => {

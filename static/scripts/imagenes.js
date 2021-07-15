@@ -209,7 +209,7 @@ function editar_imagen(id) {
             fetch_wrapper.put('imagen',datos_form_editar_imagen).then(data => {
                 alert(data.resultado);
                 if(data.status == 200){
-                    window.open("/perfil-usuario","_self");
+                    window.open(window.location.href,"_self");
                 }
             })
         }
@@ -224,7 +224,7 @@ function eliminar_imagen(id) {
             fetch_wrapper.delete('imagen',{id:id}).then(data => {
                 alert(data.resultado);
                 if (data.status == 200){
-                    window.open("/perfil-usuario","_self");
+                    window.open(window.location.href,"_self");
                 }
             })
         }

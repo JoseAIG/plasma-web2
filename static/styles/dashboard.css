@@ -69,6 +69,45 @@ body{
     padding: 0.5em;
 }
 
+/* BARRA DE BUSQUEDA DE IMAGENES POR TAGS */
+/* ESTILO DE LOS ELEMENTOS DE LA BUSQUEDA */
+#form-busqueda{
+    display: flex;
+    width: 50%;
+    height: 3em;
+    margin: auto;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+}
+
+#input-busqueda{
+    flex: auto;
+    border: none;
+    border-radius: 0px;
+    height: 3em;
+    width: 70%;
+    background-color: transparent;
+    transition: none;
+}
+
+#input-busqueda:hover, #input-busqueda:focus{
+    box-shadow: none;
+}
+
+#form-busqueda button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-right: 0.5em;
+    height: 2.5em;
+    width: 2.5em;
+}
+
+#boton-buscar img{
+    width: 1.5em;
+}
+
 /* ESTILO DE LAS TARJETAS DE LAS PUBLICACIONES */
 .tarjeta-publicacion {
     font-family: 'Montserrat';

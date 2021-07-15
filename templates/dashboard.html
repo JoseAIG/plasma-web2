@@ -10,6 +10,7 @@
 
 {% block scripts %}
     <script src="../static/scripts/dashboard.js" type="module" defer></script>
+    <script src="../static/scripts/busqueda_tags.js" type="module" defer></script>
     <script src="../static/scripts/modificacion_perfil.js" type="module" defer></script>
     <script src="../static/scripts/repositorios.js" type="module" defer></script>
     <script src="../static/scripts/imagenes.js" type="module" defer></script>
@@ -30,26 +31,31 @@
             <a href="perfil-usuario"><img src="../static/assets/icons/usuario.svg" onerror="this.src='../static/assets/icons/usuario.svg'" id="imagen-icono-perfil" class="rounded-circle icono-perfil"></a>
         </div>
     </nav>
+    <!-- CONTENEDOR FLUID PRINCIPAL DE LA APP -->
     <div class="container-fluid" style="height: 90vh;">
         <div class="row flex-nowrap" style="height: 90vh;">
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 barra-lateral">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                        <!-- INICIO -->
                         <li class="nav-item mt-2 mb-2">
                             <a href="/dashboard" class="nav-link align-middle px-0 text-dark">
                                 <img src="../static/assets/icons/inicio.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Inicio</span>
                             </a>
-                        </li>                        
+                        </li>   
+                        <!-- MIS REPOSITORIOS / PERFIL -->
                         <li class="nav-item mb-2">
                             <a href="perfil-usuario" class="nav-link align-middle px-0 text-dark">
                                 <img src="../static/assets/icons/repositorio.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Mis repositorios</span>
                             </a>
                         </li>
+                        <!-- NUEVO REPOSITORIO -->
                         <li class="nav-item mb-2">
                             <a class="nav-link px-0 align-middle text-dark" data-bs-toggle="modal" href="#modal-crear-repositorio">
                                 <img src="../static/assets/icons/nuevo-repositorio.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Nuevo repositorio</span>
                             </a>
                         </li>
+                        <!-- NUEVA IMAGEN -->
                         <li class="nav-item mb-2">
                             <a id="link-nueva-imagen" class="nav-link px-0 align-middle text-dark" data-bs-toggle="modal" href="#modal-crear-imagen">
                                 <img src="../static/assets/icons/cargar.svg" class="fs-4 pb-1"> <span class="ms-1 d-none d-sm-inline">Nueva imagen</span>
@@ -72,10 +78,20 @@
             </div>
             <div id="div-contenido-principal" class="col py-3">
                 {% block contenido %}
-                    <h4 class="text-center mt-2 mb-4">Las más recientes publicaciones</h4>
+                    <!-- FORM BUSCAR IMAGENES POR TAG -->
+                    <form id="form-busqueda">
+                        <input type="text" name="tag" id="input-busqueda" autocomplete="off" placeholder="Buscar un tag">
+                        <button id="boton-buscar"><img src="../static/assets/icons/buscar.svg"></button>
+                        <button id="boton-quitar-busqueda" style="display: none;"><img src="../static/assets/icons/remover.svg"></button>
+                    </form>
+                    <!-- INFORMACION DE LAS IMAGENES -->
+                    <h4 id="informacion-dashboard" class="text-center mt-4 mb-4"></h4>
+                    <!-- SPINNER DE CARGA -->
                     <div id="carga-imagenes-dashboard" class="d-flex justify-content-center">
                         <div class="spinner-border" role="status"></div>
                     </div>
+                    <!-- CONTENEDOR DE PUBLICACIONES DE IMAGENES -->
+                    <div id="contenedor-imagenes-dashboard"></div>
                 {% endblock %}
             </div>
         </div>

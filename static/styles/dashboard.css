@@ -19,17 +19,12 @@ body{
     /* box-shadow: 2px 5px 5px gray; */
 }
 
-/* IMAGEN DE PERFIL DEL USUARIO EN LA VISTA DE PERFIL */
-#imagen-perfil-usuario{
-    width: 15%;
-}
-
 /* PREVISUALIZACION DE LA IMAGEN DEL REPOSITORIO EN EL MODAL DE CREACION Y EDICION*/
 #previsualizacion-imagen-crear-repositorio, #previsualizacion-imagen-editar-repositorio{
     border-radius: 15px;
 }
 
-#previsualizacion-imagen-crear-imagen, #previsualizacion-imagen-editar-imagen{
+#previsualizacion-imagen-visualizar-repositorio, #previsualizacion-imagen-crear-imagen, #previsualizacion-imagen-editar-imagen{
     border-radius: 15px;
     width: 40%;
 }
@@ -61,7 +56,10 @@ body{
 
 /* ICONO DEL PERFIL DEL USUARIO EN LA NAVBAR */
 .icono-perfil{
-    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    height: 65px;
+    width: 65px;
 }
 
 /* BOTON VOLVER */
@@ -131,9 +129,11 @@ body{
     padding: 0px;
 }
 
-.tarjeta-publicacion .rounded-circle{
-    width: 15%;
+.tarjeta-publicacion .icono-perfil{
+    width: 55px;
+    height: 55px;
     margin-right: 0.5em;
+    border-radius: 50%;
 }
 
 .tarjeta-publicacion img{
@@ -239,6 +239,10 @@ body{
 @media (max-width: 500px) {  
     #imagen-perfil-usuario{
         width: 45%;
+    }
+
+    #form-busqueda{
+        width: 85%;
     }
 
     .tarjeta-publicacion{

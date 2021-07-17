@@ -23,8 +23,8 @@ def obtener_imagenes():
 # FUNCION  PARA OBTENER IMAGENES CON UN TAG ESPECIFICO
 def obtener_imagenes_tag(tag):
     try:
-        # BUSCAR TODAS LAS IMAGENES QUE POSEAN ESE TAG EN EL ARREGLO DE TAGS
-        imagenes_tag = Imagen.query.filter(Imagen.tags.any(tag)).all()
+        # BUSCAR TODAS LAS IMAGENES QUE POSEAN ESE TAG EN EL ARREGLO DE TAGS DE FORMA DESCENCIENTE
+        imagenes_tag = Imagen.query.filter(Imagen.tags.any(tag)).order_by(Imagen.id.desc()).all()
 
         # RECORRER LOS RESULTADOS DE LAS IMAGENES, GENERANDO UNA LISTA DE IMAGENES PARA BRINDAR RESPUESTA
         lista_imagenes_tag = []

@@ -134,7 +134,7 @@ boton_guardar_imagen.onclick = () => {
 
 //FUNCION PARA ESTABLECER EL CONTENIDO DEL MODAL EDITAR IMAGEN
 var previsualizacion_imagen_editar_imagen = document.getElementById("previsualizacion-imagen-editar-imagen");
-var input_imagen_editar_imagen = document.getElementById("input-imagen-editar-imagen");
+//var input_imagen_editar_imagen = document.getElementById("input-imagen-editar-imagen");
 var input_descripcion_editar_imagen = document.getElementById("input-descripcion-editar-imagen");
 var select_repositorio_editar_imagen = document.getElementById("select-repositorio-editar-imagen");
 var contenedor_tags_editar_imagen = document.getElementById("contenedor-tags-editar-imagen");

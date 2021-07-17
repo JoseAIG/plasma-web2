@@ -8,7 +8,7 @@ from models.imagen import Imagen
 def obtener_repositorios_usuario():
     try:
         # HACER UNA CONSULTA EN LOS REPOSITORIOS CON EL ID DEL USUARIO
-        repositorios_usuario = Repositorio.query.filter_by(id_usuario = session['id']).all()
+        repositorios_usuario = Repositorio.query.filter_by(id_usuario = session['id']).order_by(Repositorio.id.desc()).all()
         # RECORRER LOS REPOSITORIOS DEL USUARIO, GENERANDO UNA LISTA DE REPOSITORIOS PARA BRINDAR RESPUESTA
         lista_repositorios_usuario = []
         for repositorio in repositorios_usuario:

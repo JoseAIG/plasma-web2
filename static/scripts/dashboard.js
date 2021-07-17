@@ -48,7 +48,7 @@ export function dibujar_imagenes_publicaciones(imagenes, mensaje) {
             let div_header = document.createElement('div');
             div_header.className = "card-header";
             let img_icono = document.createElement('img'); //ICONO DEL USUARIO
-            img_icono.className = "rounded-circle";
+            img_icono.className = "icono-perfil";
             img_icono.src = imagen.ruta_imagen_perfil;
             img_icono.onerror = () => {
                 img_icono.src = 'static/assets/icons/usuario.svg'

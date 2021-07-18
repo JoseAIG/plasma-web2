@@ -1,4 +1,5 @@
 //IMPORT
+import { alerta } from "./helpers/alerta.js";
 import { fetch_wrapper } from "./helpers/fetch_wrapper.js";
 import { validar_correo } from "./helpers/validacion_correo.js"
 
@@ -30,17 +31,24 @@ var boton_guardar_edicion_perfil = document.getElementById("boton-guardar-edicio
 boton_guardar_edicion_perfil.onclick = () => {
     let datos_form_editar_perfil = new FormData(form_editar_perfil);
 	if(!validar_correo(datos_form_editar_perfil.get("correo"))){
-		alert("Ingrese un correo valido");
+        alerta("Ingrese un correo válido", "alert-warning");
 	}
     else if(datos_form_editar_perfil.get("clave").length<6 && datos_form_editar_perfil.get("clave")!=""){
-		alert("Ingrese una clave con 6 o mas caracteres");
+        alerta("Ingrese una clave con 6 o mas caracteres", "alert-warning");
 	}
     else if(datos_form_editar_perfil.get("clave")!=datos_form_editar_perfil.get("confirmar-clave")){
-		alert("Confirme correctamente su clave");
+        alerta("Confirme correctamente su clave", "alert-warning");
 	}else{
         fetch_wrapper.put("perfil",datos_form_editar_perfil).then(data => {
-            alert(data.resultado);
-            window.open("/dashboard","_self");
+            console.log(data);
+            if(data.status == 200){
+                alerta(data.resultado, "alert-success");
+                setTimeout(() => {
+                    window.open("/dashboard","_self");
+                }, 1000);
+            }else{
+                alerta(data.resultado, "alert-danger");
+            }
         })
     }
 }
@@ -50,9 +58,13 @@ var boton_eliminar_perfil = document.getElementById("boton-eliminar-perfil");
 boton_eliminar_perfil.onclick = () => {
     if(confirm("¿Desea eliminar su perfil?")){
         fetch_wrapper.delete("perfil").then(data => {
-            alert(data.resultado);
             if(data.status == 200){
-                window.open("/","_self");
+                alerta(data.resultado, "alert-success");
+                setTimeout(() => {
+                    window.open("/","_self");
+                }, 1000);
+            }else{
+                alerta(data.resultado, "alert-danger");
             }
         })
     }

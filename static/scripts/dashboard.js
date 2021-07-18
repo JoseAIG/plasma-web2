@@ -1,4 +1,5 @@
 //IMPORT
+import { alerta } from "./helpers/alerta.js";
 import { fetch_wrapper } from "./helpers/fetch_wrapper.js";
 import { dibujar_contenido_repositorio } from "./repositorios.js";
 
@@ -114,9 +115,11 @@ export function dibujar_imagenes_publicaciones(imagenes, mensaje) {
 var link_cerrar_sesion = document.getElementById("link-cerrar-sesion");
 link_cerrar_sesion.onclick = () => {
     fetch_wrapper.post('/dashboard').then(data => {
-        alert(data.resultado)
+        alerta(data.resultado, "alert-primary");
         if(data.status == 200){
-            window.open("/","_self");
+            setTimeout(() => {
+                window.open("/","_self");
+            }, 1000);
         }
     })
 }

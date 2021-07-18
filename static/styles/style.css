@@ -123,6 +123,14 @@ select{
     border: 0px;
 }
 
+/* ICONO DEL PERFIL DEL USUARIO */
+.icono-perfil{
+    object-fit: cover;
+    border-radius: 50%;
+    height: 65px;
+    width: 65px;
+}
+
 /* AJUSTAR ELEMENTOS PARA PANTALLAS DE MENOR TAMANIO */
 @media (max-width: 900px) {
     .card{

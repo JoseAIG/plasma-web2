@@ -1,4 +1,5 @@
 //IMPORTS
+import { alerta } from "./helpers/alerta.js";
 import { fetch_wrapper } from "./helpers/fetch_wrapper.js";
 import { establecer_datos_crear_imagen, establecer_contenido_editar_imagen } from "./imagenes.js";
 
@@ -15,18 +16,23 @@ var boton_guardar_repositorio = document.getElementById("boton-guardar-repositor
 boton_guardar_repositorio.onclick = () => {
     let datos_form_crear_repositorio = new FormData(form_crear_repositorio);
     if(datos_form_crear_repositorio.get('nombre') == ""){
-        alert("Ingrese un nombre para su repositorio.");
+        alerta("Ingrese un nombre para su repositorio.","alert-warning");
     }
     else if(datos_form_crear_repositorio.get('nombre').length > 25){
-        alert("Ingrese un nombre que contenga menos de 25 caracteres.");
+        alerta("Ingrese un nombre que contenga menos de 25 caracteres.","alert-warning");
     }
     else if(datos_form_crear_repositorio.get('descripcion').length > 100){
-        alert("La descripcion del repositoio no puede tener mas de 100 caracteres.");
+        alerta("La descripcion del repositoio no puede tener mas de 100 caracteres.","alert-warning");
+
     }else{
         fetch_wrapper.post('repositorio', datos_form_crear_repositorio).then(data => {
-            alert(data.resultado);
             if(data.status == 200){
-                window.open(window.location.href,"_self");
+                alerta(data.resultado,"alert-success");
+                setTimeout(() => {
+                    window.open(window.location.href,"_self");
+                }, 1000);
+            }else{
+                alerta(data.resultado,"alert-danger");
             }
         })
     }
@@ -64,18 +70,22 @@ function guardar_edicion_repositorio(id) {
         datos_form_editar_repositorio.append('id', id);
         //COMPROBAR QUE LOS DATOS DEL FORMULARIO SEAN VALIDOS
         if(datos_form_editar_repositorio.get('nombre') == ""){
-            alert("Ingrese un nombre para su repositorio.");
+            alerta("Ingrese un nombre para su repositorio.","alert-warning");
         }
         else if(datos_form_editar_repositorio.get('nombre').length > 25){
-            alert("Ingrese un nombre que contenga menos de 25 caracteres.");
+            alerta("Ingrese un nombre que contenga menos de 25 caracteres.","alert-warning");
         }
         else if(datos_form_editar_repositorio.get('descripcion').length > 100){
-            alert("La descripcion del repositoio no puede tener mas de 100 caracteres.");
+            alerta("La descripcion del repositoio no puede tener mas de 100 caracteres.","alert-warning");
         }else{
             fetch_wrapper.put('repositorio', datos_form_editar_repositorio).then(data => {
-                alert(data.resultado);
                 if(data.status == 200){
-                    window.open("/perfil-usuario","_self");
+                    alerta(data.resultado,"alert-success");
+                    setTimeout(() => {
+                        window.open("perfil-usuario","_self");
+                    }, 1000);
+                }else{
+                    alerta(data.resultado,"alert-danger");
                 }
             })
         }
@@ -88,9 +98,13 @@ function eliminar_repositorio(id) {
     boton_eliminar_repositorio.onclick = () => {
         if(confirm("¿Desea eliminar este repositorio?")){
             fetch_wrapper.delete('repositorio',{id:id}).then(data => {
-                alert(data.resultado);
                 if(data.status == 200){
-                    window.open("/perfil-usuario","_self");
+                    alerta(data.resultado,"alert-success");
+                    setTimeout(() => {
+                        window.open("perfil-usuario","_self");
+                    }, 1000);
+                }else{
+                    alerta(data.resultado,"alert-danger");
                 }
             })
         }

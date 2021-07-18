@@ -1,4 +1,5 @@
 //IMPORTS
+import { alerta } from "./helpers/alerta.js";
 import { fetch_wrapper } from "./helpers/fetch_wrapper.js";
 
 //PREVISUALIZACION DE LA IMAGEN A CARGAR CUANDO ES SELECCIONADA EN EL MODAL NUEVA IMAGEN
@@ -47,9 +48,9 @@ input_tags_crear_imagen.onkeyup = (e) => {
     //SI SE PULSA ENTER, EL TAG NO ES VACIO Y EL TAG NO SE ENCUENTRA YA EN EL ARREGLO DE TAGS...
     if(e.key === 'Enter' && texto_tag!=""){
         if(tags_imagen.includes(texto_tag)){
-            alert("Ya el tag se encuentra agregado.")
+            alerta("Ya el tag se encuentra agregado.","alert-warning");
         }else if(texto_tag.length > 15){
-            alert("Los tags no pueden tener mas de 15 caracteres.");
+            alerta("Los tags no pueden tener mas de 15 caracteres.","alert-warning");
         }else{
             //INCLUIR EL TAG EN EN EL ARREGLO
             tags_imagen.push(texto_tag);
@@ -114,19 +115,23 @@ boton_guardar_imagen.onclick = () => {
     datos_form_crear_imagen.append('fecha_creacion', fecha_actual.getDate()+"/"+(fecha_actual.getMonth()+1)+"/"+fecha_actual.getFullYear()); 
     //COMPROBAR QUE LOS CAMPOS SEAN VALIDOS PARA REALIZAR LA SOLICITUD
     if(datos_form_crear_imagen.get('imagen').name == ""){
-        alert("Debe insertar una imagen.");
+        alerta("Debe insertar una imagen.","alert-warning");
     }
     else if(datos_form_crear_imagen.get('descripcion').length > 60){
-        alert("Ingrese una descripcion con maximo 60 caracteres.");
+        alerta("Ingrese una descripcion con maximo 60 caracteres.","alert-warning");
     }
     else if(datos_form_crear_imagen.get('repositorio') == ""){
-        alert("Seleccione un repositorio donde se guardara la imagen");
+        alerta("Seleccione un repositorio donde se guardara la imagen.","alert-warning");
     }
     else{
         fetch_wrapper.post('imagen',datos_form_crear_imagen).then(data => {
-            alert(data.resultado);
             if(data.status == 200){
-                window.open(window.location.href,"_self");
+                alerta(data.resultado,"alert-success");
+                setTimeout(() => {
+                    window.open(window.location.href,"_self");                    
+                }, 1000);
+            }else{
+                alerta(data.resultado,"alert-danger");
             }
         })
     }
@@ -174,9 +179,9 @@ input_tags_editar_imagen.onkeyup = (e) => {
     //SI SE PULSA ENTER, EL TAG NO ES VACIO Y EL TAG NO SE ENCUENTRA YA EN EL ARREGLO DE TAGS...
     if(e.key === 'Enter' && texto_tag!=""){
         if(tags_editar_imagen.includes(texto_tag)){
-            alert("Ya el tag se encuentra agregado.")
+            alerta("Ya el tag se encuentra agregado.","alert-warning");
         }else if(texto_tag.length > 15){
-            alert("Los tags no pueden tener mas de 15 caracteres.");
+            alerta("Los tags no pueden tener mas de 15 caracteres.","alert-warning");
         }else{
             //INCLUIR EL TAG EN EN EL ARREGLO
             tags_editar_imagen.push(texto_tag);
@@ -201,15 +206,19 @@ function editar_imagen(id) {
         datos_form_editar_imagen.append('tags',JSON.stringify(tags_editar_imagen));
         //COMPROBAR QUE LOS CAMPOS SEAN VALIDOS PARA REALIZAR LA PETICION
         if(datos_form_editar_imagen.get('descripcion').length > 60){
-            alert("Ingrese una descripcion con maximo 60 caracteres.");
+            alerta("Ingrese una descripcion con maximo 60 caracteres.","alert-warning");
         }
         else if(datos_form_editar_imagen.get('repositorio') == ""){
-            alert("Seleccione un repositorio donde se guardara la imagen");
+            alerta("Seleccione un repositorio donde se guardara la imagen.","alert-warning");
         }else{
             fetch_wrapper.put('imagen',datos_form_editar_imagen).then(data => {
-                alert(data.resultado);
                 if(data.status == 200){
-                    window.open(window.location.href,"_self");
+                    alerta(data.resultado,"alert-success");
+                    setTimeout(() => {
+                        window.open(window.location.href,"_self");                    
+                    }, 1000);
+                }else{
+                    alerta(data.resultado,"alert-danger");
                 }
             })
         }
@@ -222,9 +231,13 @@ function eliminar_imagen(id) {
     boton_eliminar_imagen.onclick = () => {
         if(confirm("¿Desea eliminar esta imagen?")){
             fetch_wrapper.delete('imagen',{id:id}).then(data => {
-                alert(data.resultado);
-                if (data.status == 200){
-                    window.open(window.location.href,"_self");
+                if(data.status == 200){
+                    alerta(data.resultado,"alert-success");
+                    setTimeout(() => {
+                        window.open(window.location.href,"_self");                    
+                    }, 1000);
+                }else{
+                    alerta(data.resultado,"alert-danger");
                 }
             })
         }

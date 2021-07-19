@@ -3,6 +3,7 @@ import bcrypt
 import os, uuid
 from app import db
 from models.usuario import Usuario
+from models.repositorio import Repositorio
 
 # FUNCION PARA REGISTRAR UN USUARIO EN LA BASE DE DATOS
 def registrar_usuario(request):
@@ -119,3 +120,30 @@ def eliminar_usuario():
     except Exception as e:
         print(e)
         return {'status':500, 'resultado':"No se pudo eliminar el perfil"}, 500
+
+# FUNCION PARA OBTENER LOS DATOS DEL PERFIL DE UN USUARIO
+def obtener_perfil_usuario(usuario):
+    try:
+        print("se obtendran los datos del perfil del usuario " + usuario)
+
+        # OBTENER LOS DATOS DEL PERFIL DEL USUARIO
+        usuario = Usuario.query.filter(Usuario.usuario == usuario).first()
+
+        # SI NO EXISTE EL USUARIO DEVOLVER LA VISTA DE 404
+        if not usuario:
+            print("no existe ese usuario")
+            return {"resultado": "No existe ese usuario", "status":404}, 404
+
+        datos_usuario = {'id':usuario.id, 'usuario':usuario.usuario, 'correo':usuario.correo, 'fecha_registro':usuario.fecha_registro.strftime("%d/%m/%Y"), 'ruta_imagen_perfil':usuario.ruta_imagen_perfil}
+
+        # OBTENER LOS REPOSITORIOS DEL USUARIO
+        repositorios_usuario = Repositorio.query.filter(Repositorio.id_usuario == usuario.id).order_by(Repositorio.id.desc()).all()
+        lista_repositorios_usuario = []
+        for repositorio in repositorios_usuario:
+            datos_repositorio = {'id':repositorio.id, 'id_usuario':repositorio.id_usuario, 'nombre':repositorio.nombre, 'descripcion':repositorio.descripcion, 'fecha_creacion':repositorio.fecha_creacion.strftime("%d/%m/%Y"), 'ruta_imagen_repositorio':repositorio.ruta_imagen_repositorio}
+            lista_repositorios_usuario.append(datos_repositorio)
+
+        return {"datos_usuario": datos_usuario, "repositorios_usuario":lista_repositorios_usuario, "status":200}, 200
+    except Exception as e:
+        print(e)
+        return {"resultado": "No se pudo obtener el perfil del usuario", "status":500}, 500

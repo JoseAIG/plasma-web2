@@ -44,7 +44,7 @@ boton_guardar_edicion_perfil.onclick = () => {
             if(data.status == 200){
                 alerta(data.resultado, "alert-success");
                 setTimeout(() => {
-                    window.open("/dashboard","_self");
+                    window.open(window.location.href,"_self");
                 }, 1000);
             }else{
                 alerta(data.resultado, "alert-danger");

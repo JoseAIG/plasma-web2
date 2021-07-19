@@ -34,7 +34,10 @@ const realizar_busqueda = (e) => {
         })
     }
 }
-boton_buscar.onclick=realizar_busqueda;
+//SI EL ENDPOINT ES /dashboard ESTABLECER LA FUNCIONALIDAD PARA REALIZAR LA BUSQUEDA POR TAGS
+if(window.location.pathname == "/dashboard"){
+    boton_buscar.onclick=realizar_busqueda;
+}
 
 //FUNCIONALIDAD PARA QUITAR LA BUSQUEDA
 var input_busqueda = document.getElementById("input-busqueda");
@@ -52,4 +55,7 @@ const quitar_busqueda = (e) => {
     //OBTENER LAS IMAGENES MAS RECIENTES
     obtener_imagenes_recientes();
 }
-boton_quitar_busqueda.onclick = quitar_busqueda;
+//SI EL ENDPOINT ES /dashboard ESTABLECER LA FUNCIONALIDAD QUITAR LA BUSQUEDA REALIZADA POR TAGS
+if(window.location.pathname == "/dashboard"){
+    boton_quitar_busqueda.onclick = quitar_busqueda;
+}

@@ -116,7 +116,7 @@ var nombre_visualizar_repositorio = document.getElementById("nombre-visualizar-r
 var previsualizacion_imagen_visualizar_repositorio = document.getElementById("previsualizacion-imagen-visualizar-repositorio");
 var descripcion_visualizar_repositorio = document.getElementById("descripcion-visualizar-repositorio");
 var contenedor_imagenes_visualizar_repositorio = document.getElementById("contenedor-imagenes-visualizar-repositorio");
-export function dibujar_contenido_repositorio(id) {
+export function dibujar_contenido_repositorio(id, tercero) {
 
     //LIMPIAR LOS VALORES DEL REPOSITORIO
     nombre_visualizar_repositorio.innerText = "";
@@ -188,8 +188,6 @@ export function dibujar_contenido_repositorio(id) {
                     a.appendChild(img_editar);
                     div_footer.appendChild(a);
                     
-                    //div_footer.innerHTML += '<a data-bs-toggle="modal" data-bs-dismiss="modal" href="#modal-editar-imagen" style="margin-left: auto"><img src="/static/assets/icons/editar.svg" alt="editar"></a>'
-
                     //DIBUJAR EL CONTENIDO DEL MODAL PARA EDITAR LA IMAGEN CUANDO SE PULSA EL ANCHOR TAG (LINK EDITAR)
                     a.addEventListener('click', () => {
                         establecer_contenido_editar_imagen(imagen);
@@ -201,23 +199,33 @@ export function dibujar_contenido_repositorio(id) {
                 contenedor_imagenes_visualizar_repositorio.appendChild(div);
             })
         }else{
-            //SI NO SE TIENEN IMAGENES EN EL REPOSITORIO, MOSTRAR UN MENSAJE
-            let h4 = document.createElement('h4');
-            h4.className = 'text-center mx-auto mt-5 w-100';
-            h4.innerText = 'Parece que aun no tienes imagenes en este repositorio... ¡Sube alguna!';
-            contenedor_imagenes_visualizar_repositorio.appendChild(h4);
-            //BOTON PARA CREAR UN NUEVO REPOSITORIO
-            let button = document.createElement('button');
-            button.className = "boton-acento mx-auto w-auto";
-            button.innerText = "Nueva imagen";
-            button.setAttribute("data-bs-toggle","modal");
-            button.setAttribute("data-bs-dismiss","modal");
-            button.setAttribute("data-bs-target","#modal-crear-imagen");
-            //AL PULSAR EL BOTON CREAR NUEVA IMAGEN EN LA VISTA DE REPOSITORIO SIN IMAGEN, ESTABLECER LOS DATOS DE LA IMAGEN
-            button.onclick = () => {
-                establecer_datos_crear_imagen();
+            //SI EL USUARIO QUE ESTA VISUALIZANDO EL REPOSITORIO SIN IMAGENES NO ES UN TERCERO, DARLE LA OPCION DE CREAR UNA IMAGEN
+            if(!tercero){
+                //MOSTRAR MENSAJE QUE NO HAY IMAGENES EN ESE REPOSITORIO
+                let h4 = document.createElement('h4');
+                h4.className = 'text-center mx-auto mt-5 w-100';
+                h4.innerText = 'Parece que aun no tienes imagenes en este repositorio... ¡Sube alguna!';
+                contenedor_imagenes_visualizar_repositorio.appendChild(h4);
+                //BOTON PARA CREAR UN NUEVO REPOSITORIO
+                let button = document.createElement('button');
+                button.className = "boton-acento mx-auto w-auto";
+                button.innerText = "Nueva imagen";
+                button.setAttribute("data-bs-toggle","modal");
+                button.setAttribute("data-bs-dismiss","modal");
+                button.setAttribute("data-bs-target","#modal-crear-imagen");
+                //AL PULSAR EL BOTON CREAR NUEVA IMAGEN EN LA VISTA DE REPOSITORIO SIN IMAGEN, ESTABLECER LOS DATOS DE LA IMAGEN
+                button.onclick = () => {
+                    establecer_datos_crear_imagen();
+                }
+                contenedor_imagenes_visualizar_repositorio.appendChild(button);
+            }else{
+                //MOSTRAR MENSAJE QUE NO HAY IMAGENES EN ESE REPOSITORIO
+                let h4 = document.createElement('h4');
+                h4.className = 'text-center mx-auto mt-5 w-100';
+                h4.innerText = 'Parece que aun no hay imagenes en este repositorio...';
+                contenedor_imagenes_visualizar_repositorio.appendChild(h4);
             }
-            contenedor_imagenes_visualizar_repositorio.appendChild(button);
+
         }
 
     })

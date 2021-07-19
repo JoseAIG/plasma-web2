@@ -56,7 +56,15 @@ export function dibujar_imagenes_publicaciones(imagenes, mensaje) {
             }
             div_header.appendChild(img_icono);
             let span_usuario = document.createElement('span');
-            span_usuario.innerText = imagen.usuario + " > "; //NOMBRE DE USUARIO        
+
+            let a_usuario = document.createElement('a'); //ANCHOR TAG DEL PERFIL DEL USUARIO
+            a_usuario.style.textDecoration = 'none'
+            a_usuario.innerText = imagen.usuario
+            a_usuario.href = "perfil-usuario?usuario="+imagen.usuario;
+            span_usuario.appendChild(a_usuario);
+
+            span_usuario.innerHTML += " > ";
+
             let a = document.createElement('a'); //ANCHOR TAG DEL REPOSITORIO AL QUE PERTENECE LA IMAGEN
             a.style.textDecoration = 'none';
             a.innerText = imagen.nombre_repositorio;

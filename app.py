@@ -115,6 +115,12 @@ def perfil_usuario():
     if request.method == 'GET':
         return render_template('perfil_usuario.html')
 
+#ENDPOINT /perfil/id
+@app.route('/perfil-usuario/<usuario>', methods = ['GET'])
+def perfil_usuario_usuario(usuario):
+    if request.method == 'GET':
+        return obtener_perfil_usuario(usuario)
+
 if __name__ == '__main__':
     db.init_app(app)
 

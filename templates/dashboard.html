@@ -78,12 +78,15 @@
             </div>
             <div id="div-contenido-principal" class="col py-3">
                 {% block contenido %}
-                    <!-- FORM BUSCAR IMAGENES POR TAG -->
-                    <form id="form-busqueda">
-                        <input type="text" name="tag" id="input-busqueda" autocomplete="off" placeholder="Buscar un tag">
-                        <button id="boton-buscar"><img src="../static/assets/icons/buscar.svg"></button>
-                        <button id="boton-quitar-busqueda" style="display: none;"><img src="../static/assets/icons/remover.svg"></button>
-                    </form>
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <button id="boton-refrescar"><img src="../static/assets/icons/refrescar.svg"></button>
+                        <!-- FORM BUSCAR IMAGENES POR TAG -->
+                        <form id="form-busqueda">
+                            <input type="text" name="tag" id="input-busqueda" autocomplete="off" placeholder="Buscar un tag">
+                            <button id="boton-buscar"><img src="../static/assets/icons/buscar.svg"></button>
+                            <button id="boton-quitar-busqueda" style="display: none;"><img src="../static/assets/icons/remover.svg"></button>
+                        </form>
+                    </div>
                     <!-- INFORMACION DE LAS IMAGENES -->
                     <h4 id="informacion-dashboard" class="text-center mt-4 mb-4"></h4>
                     <!-- SPINNER DE CARGA -->

@@ -59,13 +59,21 @@ body{
     padding: 0.5em;
 }
 
+/* BOTON REFRESCAR IMAGENES */
+#boton-refrescar{
+    height: 3em;
+    width: 3em;
+    padding: 0px;
+    margin-right: 0.5em;
+}
+
 /* BARRA DE BUSQUEDA DE IMAGENES POR TAGS */
 /* ESTILO DE LOS ELEMENTOS DE LA BUSQUEDA */
 #form-busqueda{
-    display: flex;
+    display: inline-flex;
     width: 50%;
     height: 3em;
-    margin: auto;
+    /* margin: auto; */
     border: 1px solid lightgray;
     border-radius: 15px;
 }

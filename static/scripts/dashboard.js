@@ -19,6 +19,10 @@ window.onload = () => {
 export function obtener_imagenes_recientes() {
     //SI EL ENDPOINT ES /dashboard SOLICITAR LAS IMAGENES PARA MOSTRARLAS EN LA VISTA DE ENTRADA
     if(window.location.pathname == "/dashboard"){
+        //LIMPIAR LA INFORMACION DEL DASHBOARD
+        informacion_dashboard.innerText = "";
+        //LIMPIAR EL CONTENEDOR DE IMAGENES DEL DASHBOARD
+        contenedor_imagenes_dashboard.innerHTML = "";
         //MOSTRAR EL SPINNER DE CARGA
         document.getElementById("carga-imagenes-dashboard").className = "d-flex justify-content-center";
         //REALIZAR LA SOLCITUD DE LAS IMAGENES

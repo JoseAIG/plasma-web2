@@ -2,6 +2,13 @@
 import { fetch_wrapper } from "./helpers/fetch_wrapper.js";
 import { obtener_imagenes_recientes, dibujar_imagenes_publicaciones } from "./dashboard.js";
 
+//FUNCIONALIDAD PARA REFRESCAR LAS IMAGENES RECIENTES
+//SI EL ENDPOINT ES /dashboard ESTABLECER LA FUNCIONALIDAD PARA REFRESCAR LAS IMAGENES RECIENTES
+var boton_refrescar = document.getElementById("boton-refrescar");
+if(window.location.pathname == "/dashboard"){
+    boton_refrescar.onclick = obtener_imagenes_recientes;
+}
+
 //FUNCION PARA REALIZAR BUSQUEDAS DE IMAGENES POR UN TAG
 var form_busqueda = document.getElementById("form-busqueda");
 var boton_buscar = document.getElementById("boton-buscar");
@@ -32,6 +39,11 @@ const realizar_busqueda = (e) => {
             //DIBUJAR LAS PUBLICACIONES DE LAS IMAGENES QUE COINCIDAN CON EL TAG DE LA BUSQUEDA
             dibujar_imagenes_publicaciones(data.imagenes_tag, "Imagenes con el tag: " + tag);
         })
+
+        //FUNCIONALIDAD REFRESCAR IMAGENES EN BUSQUEDA POR TAG
+        boton_refrescar.onclick = (e) =>  {
+            realizar_busqueda(e);
+        }
     }
 }
 //SI EL ENDPOINT ES /dashboard ESTABLECER LA FUNCIONALIDAD PARA REALIZAR LA BUSQUEDA POR TAGS
@@ -48,10 +60,8 @@ const quitar_busqueda = (e) => {
     boton_quitar_busqueda.style.display = "none";
     //LIMPIAR EL VALOR DEL INPUT DE BUSQUEDA
     input_busqueda.value = "";
-    //LIMPIAR LA INFORMACION DEL DASHBOARD
-    informacion_dashboard.innerText = "";
-    //LIMPIAR EL CONTENEDOR DE IMAGENES DEL DASHBOARD
-    contenedor_imagenes_dashboard.innerHTML = "";
+    //REESTABLECER LA FUNCIONALIDAD REFRESCAR IMAGENES MAS RECIENTES
+    boton_refrescar.onclick = obtener_imagenes_recientes;
     //OBTENER LAS IMAGENES MAS RECIENTES
     obtener_imagenes_recientes();
 }

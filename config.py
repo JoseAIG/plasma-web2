@@ -9,7 +9,6 @@ class Config(object):
     POST_IMAGES = 'static/images/posts'
 
 class ProductionConfig(Config):
-    # DEVELOPMENT = False
     DEBUG = False
 
 class DevelopmentConfig(Config):

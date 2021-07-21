@@ -36,6 +36,7 @@ img{
 nav{
     background-color: #eeeeee;
     height: 10vh;
+    padding-left: 1em !important;
     /* border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px; */
 }
@@ -138,6 +139,22 @@ select{
     }
 }
 @media (max-width: 500px) {  
+    .card{
+        width: 75%;
+    }
+}
+@media (max-height: 600px) {
+    nav button{
+        padding: 0.5em;
+    }
+    nav img{
+        width: 25px;
+        height: 25px;
+    }
+    nav .icono-perfil{
+        width: 45px;
+        height: 45px;
+    }
     .card{
         width: 75%;
     }

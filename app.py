@@ -6,7 +6,7 @@ from werkzeug.utils import redirect
 from config import *
 
 app = Flask(__name__)
-app.config.from_object(DevelopmentConfig)
+app.config.from_object(ProductionConfig)
 db = SQLAlchemy(app)
 
 # CONTROLADORES

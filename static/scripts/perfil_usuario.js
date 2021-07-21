@@ -19,7 +19,6 @@ function establecer_contenido_vista_perfil(usuario_logueado) {
     //COMPROBAR SI SE HA BRINDADO EL PARAMETRO DE BUSQUEDA DE "usuario" PARA SOLICITAR LOS DATOS DEL USUARIO ESPECIFICO
     if(parametros.usuario){
         fetch_wrapper.get("perfil-usuario/"+parametros.usuario).then(data => {
-            console.log(data);
             if(data.status == 200){
                 //DIBUJAR LOS DATOS DEL USUARIO
                 dibujar_datos_usuario(data.datos_usuario);
@@ -31,7 +30,12 @@ function establecer_contenido_vista_perfil(usuario_logueado) {
                 dibujar_usuario_inexistente();
             }
         })
-    }else{
+    }
+    //SI SE HAN BRINDADO PARAMETROS QUE NO SON LOS PARAMETROS DE "usuario", REDIRECCIONAR A INICIO
+    else if(!parametros.usuario && Object.keys(parametros).length){
+        window.location.href = "/dashboard";
+    }
+    else{
         //DE NO HABER BRINDADO EL PARAMETRO DE BUSQUEDA DE "usuario" EN LA URL, SOLICITAR LOS REPOSITORIOS Y LOS DATOS DEL PERFIL USUARIO QUE ESTA LOGUEADO EN LA APLICACION
         fetch_wrapper.get('/repositorio').then(data => {
             //DIBUJAR LOS DATOS DEL USUARIO
@@ -64,7 +68,6 @@ function dibujar_datos_usuario(datos) {
 var informacion_repositorios_perfil = document.getElementById("informacion-repositorios-perfil");
 var contenedor_tarjetas_repositorios = document.getElementById("contenedor-tarjetas-repositorios");
 function dibujar_tarjetas_repositorios(repositorios, id_usuario, id_usuario_logueado) {
-    console.log(id_usuario, id_usuario_logueado);
     //OCULTAR EL SPINNER DE CARGA
     document.getElementById('carga-repositorios-perfil').className = 'd-none';
     //LIMPIAR EL CONTENEDOR DE TARJETAS DE REPOSITORIOS

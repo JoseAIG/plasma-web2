@@ -46,11 +46,11 @@ button{
     border: none;
     padding: 1em;
     border-radius: 15px;
-    background-color: #eeeeee;
+    background-color: #e0e0e0;
     transition: background-color 1s;
 }
 button:hover{
-    background-color: #e0e0e0;
+    background-color: #bdbdbd;
 }
 button:focus{
     outline: none;

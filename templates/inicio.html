@@ -1,9 +1,50 @@
 {% extends 'base.html' %}
 {% from 'elements/navbar.html' import navbar %}
 
+{% block styles %}
+    <link rel="stylesheet" href="../static/styles/inicio.css">
+{% endblock %}
+
 {% block title %} Plasma {% endblock %}
 
 {% block body %}
     {{ navbar("Ingresar","/login","Registrarse","/registro") }}
-    <h1 class="text-center mt-3">Aqui van tarjetas</h1>
+    <div class="d-flex mt-5" style="align-items: center;">
+        <div class="contenedor-info-inicio">
+            <h1>¡Organiza tus imágenes como nunca antes!</h1>
+        </div>
+        <div class="contenedor-imagen-inicio">
+            <img src="/static/assets/icons/inicio/dibujo-inicio.svg" class="w-75 mx-auto">
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mx-auto mt-3 mb-2" style="width: 85%;">
+        <div class="col mb-2">
+          <div class="card h-100">
+            <img src="/static/assets/icons/inicio/imagenes.svg" class="card-img-top" alt="...">
+            <div class="card-body d-flex flex-column align-items-center justify-content-center">
+              <h5 class="card-title ">Feed y búsquedas</h5>
+              <p class="card-text text-align-justify">Visualiza las más recientes publicaciones de imágenes. O búscalas por algún tag.</p>
+              <p class="card-text">También puedes visualizar los repositorios e imagenes de otros usuarios.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col mb-2">
+          <div class="card h-100">
+            <img src="/static/assets/icons/inicio/repositorio-imagenes.svg" class="card-img-top" alt="...">
+            <div class="card-body d-flex flex-column align-items-center justify-content-center">
+              <h5 class="card-title">Repositorios y tags</h5>
+              <p class="card-text">Guarda tus imagenes en repositorios y agregale los tags que las representen.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col mb-2">
+          <div class="card h-100">
+            <img src="/static/assets/icons/inicio/edicion-imagenes.svg" class="card-img-top" alt="...">
+            <div class="card-body d-flex flex-column align-items-center justify-content-center">
+              <h5 class="card-title">Modifica a tu gusto</h5>
+              <p class="card-text">¿Te has equivocado? Modifica los datos de tu perfil, repositorios e imágenes, o en su defecto, elimínalos.</p>
+            </div>
+          </div>
+        </div>
+    </div>
 {% endblock %}

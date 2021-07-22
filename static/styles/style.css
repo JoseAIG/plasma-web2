@@ -124,6 +124,23 @@ select{
     border: 0px;
 }
 
+/* ESTILO DE LAS ALERTAS */
+.alert{
+    position: fixed;
+    z-index: 1080;
+    width: 40%;
+    top: 10vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+}
+
+.alert button:focus, .alert button:hover{
+    outline: none !important;
+    box-shadow: none;
+    background-color: transparent;
+}
+
 /* ICONO DEL PERFIL DEL USUARIO */
 .icono-perfil{
     object-fit: cover;
@@ -137,10 +154,16 @@ select{
     .card{
         width: 50%;
     }
+    .alert{
+        width: 60%;
+    }
 }
 @media (max-width: 500px) {  
     .card{
         width: 75%;
+    }
+    .alert{
+        width: 85%;
     }
 }
 @media (max-height: 600px) {

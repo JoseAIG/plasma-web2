@@ -30,7 +30,13 @@ def registrar_usuario(request):
         return {'status': 200, 'resultado':"Usuario registrado exitosamente"}, 200
     except Exception as e:
         print(e)
-        return {'status': 500, 'resultado':"No se pudo realizar el registro"}, 500
+        # COMPROBAR SI LA EXCEPCION ES DEBIDO A QUE EL USUARIO/CORREO YA ESTA REGISTRADO
+        if("Key (usuario)" in e.args[0]):
+            return {'status': 409, 'resultado':"Error: Usuario ya registrado."}, 409
+        elif("Key (correo)" in e.args[0]):
+            return {'status': 409, 'resultado':"Error: Correo ya registrado."}, 409
+        else:
+            return {'status': 500, 'resultado':"No se pudo realizar el registro"}, 500
 
 # FUNCION PARA VALIDAR LAS CREDENCIALES DE UN USUARIO (EMPLEADO PARA INICIO DE SESION)
 def verificar_credenciales(request):
@@ -105,7 +111,13 @@ def modificar_usuario(request):
             return {'status':400, 'resultado':"Los datos brindados son los mismos que los actuales"}, 400
     except Exception as e:
         print(e)
-        return {'status':500, 'resultado':"No se pudo modificar el perfil"}, 500
+        # COMPROBAR SI LA EXCEPCION ES DEBIDO A QUE EL USUARIO/CORREO YA ESTA REGISTRADO
+        if("Key (usuario)" in e.args[0]):
+            return {'status': 409, 'resultado':"Error: Usuario ya registrado."}, 409
+        elif("Key (correo)" in e.args[0]):
+            return {'status': 409, 'resultado':"Error: Correo ya registrado."}, 409
+        else:
+            return {'status': 500, 'resultado':"No se pudo realizar el registro"}, 500
 
 # FUNCION PARA LA ELIMINACION DE UN USUARIO
 def eliminar_usuario():

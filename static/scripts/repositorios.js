@@ -190,8 +190,14 @@ export function dibujar_contenido_repositorio(id, tercero) {
                     a.appendChild(img_editar);
                     div_footer.appendChild(a);
                     
-                    //DIBUJAR EL CONTENIDO DEL MODAL PARA EDITAR LA IMAGEN CUANDO SE PULSA EL ANCHOR TAG (LINK EDITAR)
+                    //EVENTO CUANDO SE PULSA EL ANCHOR TAG (LINK) EDITAR IMAGEN
                     a.addEventListener('click', () => {
+                        //ESTABLECER ACCION DEL BOTON CERRAR MODAL EDITAR IMAGEN (CERRAR MODAL VOLVIENDDO A LA VISTA DEL REPO AL QUE PERTENECE LA IMAGEN)
+                        let boton_cerrar_editar_imagen = document.getElementById("boton-cerrar-editar-imagen");
+                        boton_cerrar_editar_imagen.setAttribute('data-bs-toggle','modal');
+                        boton_cerrar_editar_imagen.setAttribute('data-bs-target','#modal-visualizar-repositorio');
+                        boton_cerrar_editar_imagen.innerText = "Volver";
+                        //ESTABLECER EL CONTENIDO DE LA IMAGEN EN EL MODAL DE EDICION IMAGEN
                         establecer_contenido_editar_imagen(imagen);
                     })
 
@@ -199,7 +205,7 @@ export function dibujar_contenido_repositorio(id, tercero) {
                     let button = document.getElementById("boton-nueva-imagen");
                     button.style.display = "block";
                     button.onclick = () => {
-                        establecer_datos_crear_imagen();
+                        establecer_datos_crear_imagen(repositorio.id);
                     }
                 }
                 div_card.appendChild(div_footer);
@@ -224,7 +230,7 @@ export function dibujar_contenido_repositorio(id, tercero) {
                 button.setAttribute("data-bs-target","#modal-crear-imagen");
                 //AL PULSAR EL BOTON CREAR NUEVA IMAGEN EN LA VISTA DE REPOSITORIO SIN IMAGEN, ESTABLECER LOS DATOS DE LA IMAGEN
                 button.onclick = () => {
-                    establecer_datos_crear_imagen();
+                    establecer_datos_crear_imagen(repositorio.id);
                 }
                 contenedor_imagenes_visualizar_repositorio.appendChild(button);
             }else{

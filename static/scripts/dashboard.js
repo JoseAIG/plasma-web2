@@ -1,6 +1,7 @@
 //IMPORT
 import { alerta } from "./helpers/alerta.js";
 import { fetch_wrapper } from "./helpers/fetch_wrapper.js";
+import { establecer_contenido_editar_imagen } from "./imagenes.js";
 import { dibujar_contenido_repositorio } from "./repositorios.js";
 
 var imagen_icono_perfil = document.getElementById("imagen-icono-perfil");
@@ -28,7 +29,7 @@ export function obtener_imagenes_recientes() {
         //REALIZAR LA SOLCITUD DE LAS IMAGENES
         fetch_wrapper.get('imagen').then(data => {
             //DIBUJAR LAS PUBLICACIONES DE LAS IMAGENES MAS RECIENTES
-            dibujar_imagenes_publicaciones(data.imagenes, "Las más recientes publicaciones");
+            dibujar_imagenes_publicaciones(data.id_usuario, data.imagenes, "Las más recientes publicaciones");
         })
     }
 }
@@ -36,7 +37,7 @@ export function obtener_imagenes_recientes() {
 //FUNCIONALIDAD PARA DIBUJAR LAS PUBLICACIONES DE LAS IMAGENES DEL INICIO
 var informacion_dashboard = document.getElementById("informacion-dashboard");
 var contenedor_imagenes_dashboard = document.getElementById("contenedor-imagenes-dashboard"); 
-export function dibujar_imagenes_publicaciones(imagenes, mensaje) {
+export function dibujar_imagenes_publicaciones(id_usuario, imagenes, mensaje) {
     //ESTABLECER LA INFORMACION DE LA BUSQUEDA DEL DASHBOARD
     informacion_dashboard.innerText = mensaje;
     //OCULTAR EL SPINNER DE CARGA
@@ -107,9 +108,33 @@ export function dibujar_imagenes_publicaciones(imagenes, mensaje) {
             div.appendChild(div_tags);
             //FOOTER DE LA TARJETA
             let div_footer = document.createElement('div');
-            div_footer.className = "card-footer text-muted";
+            div_footer.className = "card-footer text-muted d-flex";
             div_footer.innerText = imagen.fecha_creacion;
             div.appendChild(div_footer);
+            //SI EL PROPIETARIO DE LA IMAGEN ESTA VISUALIZANDO LA PUBLICACION DE LA IMAGEN BRINDARLE LA OPCION DE EDITAR LA IMAGEN
+            if(id_usuario == imagen.id_usuario){
+                let a = document.createElement('a');
+                a.setAttribute('data-bs-toggle', 'modal');
+                a.setAttribute('data-bs-dismiss', 'modal');
+                a.href = "#modal-editar-imagen"
+                a.style.marginLeft = "auto";
+                let img_editar = document.createElement('img');
+                img_editar.src = "/static/assets/icons/editar.svg";
+                img_editar.alt = "editar";
+                a.appendChild(img_editar);
+                div_footer.appendChild(a);
+                
+                //EVENTO CUANDO SE PULSA EL ANCHOR TAG (LINK) EDITAR IMAGEN
+                a.addEventListener('click', () => {
+                    //ESTABLECER ACCION DEL BOTON CERRAR MODAL EDITAR IMAGEN (CERRAR MODAL SIN ABRIR EL REPO AL QUE PERTENECE LA IMAGEN)
+                    let boton_cerrar_editar_imagen = document.getElementById("boton-cerrar-editar-imagen");
+                    boton_cerrar_editar_imagen.removeAttribute('data-bs-toggle');
+                    boton_cerrar_editar_imagen.removeAttribute('data-bs-target');
+                    boton_cerrar_editar_imagen.innerText = "Cerrar";
+                    //ESTABLECER EL CONTENIDO DE LA IMAGEN EN EL MODAL DE EDICION IMAGEN
+                    establecer_contenido_editar_imagen(imagen);
+                })
+            }
 
             //AGREGAR EL DIV DE LA TARJETA EN EL CONTENEDOR DE IMAGENES DEL DASHBOARD
             contenedor_imagenes_dashboard.appendChild(div);

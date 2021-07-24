@@ -13,7 +13,7 @@ input_imagen_crear_imagen.onchange = (e) => {
 var link_nueva_imagen = document.getElementById("link-nueva-imagen");
 var input_descripcion_crear_imagen = document.getElementById("input-descripcion-crear-imagen");
 var select_repositorio_crear_imagen = document.getElementById("select-repositorio-crear-imagen");
-export function establecer_datos_crear_imagen() {
+export function establecer_datos_crear_imagen(value) {
     //LIMPIAR LA IMAGEN DE PREVISUALIZACION
     previsualizacion_imagen_crear_imagen.src = "/static/assets/icons/imagen.svg";
     //LIMPIAR EL INPUT TYPE FILE
@@ -33,6 +33,11 @@ export function establecer_datos_crear_imagen() {
             option.value = data.repositorios_usuario[i].id;
             option.text = data.repositorios_usuario[i].nombre;
             select_repositorio_crear_imagen.appendChild(option);
+        }
+
+        //COMPROBAR SI SE HA BRINDADO EL PARAMETRO "value" PARA ASIGNAR EL VALOR (OPTION) DEL SELECT
+        if(Number.isInteger(value)){
+            select_repositorio_crear_imagen.value = value;
         }
     })
 }

@@ -1,4 +1,4 @@
-from flask import current_app
+from flask import session, current_app
 import os, uuid, ast
 from app import db
 from models.imagen import Imagen
@@ -12,10 +12,10 @@ def obtener_imagenes():
         # RECORRER LAS IMAGENES, GENERANDO UNA LISTA PARA BRINDARLA COMO RESPUESTA
         lista_imagenes = []
         for imagen in imagenes:
-            datos_imagen = {'id':imagen.id, 'usuario':imagen.repositorio.usuario.usuario, 'ruta_imagen_perfil': imagen.repositorio.usuario.ruta_imagen_perfil, 'id_repositorio':imagen.id_repositorio, 'nombre_repositorio':imagen.repositorio.nombre, 'descripcion':imagen.descripcion, 'tags':imagen.tags ,'fecha_creacion':imagen.fecha_creacion.strftime("%d/%m/%Y"), 'ruta_imagen':imagen.ruta_imagen}
+            datos_imagen = {'id':imagen.id, 'id_usuario':imagen.repositorio.usuario.id, 'usuario':imagen.repositorio.usuario.usuario, 'ruta_imagen_perfil': imagen.repositorio.usuario.ruta_imagen_perfil, 'id_repositorio':imagen.id_repositorio, 'nombre_repositorio':imagen.repositorio.nombre, 'descripcion':imagen.descripcion, 'tags':imagen.tags ,'fecha_creacion':imagen.fecha_creacion.strftime("%d/%m/%Y"), 'ruta_imagen':imagen.ruta_imagen}
             lista_imagenes.append(datos_imagen)
 
-        return {"imagenes":lista_imagenes, "status":200}, 200
+        return {"id_usuario": session['id'], "imagenes":lista_imagenes, "status":200}, 200
     except Exception as e:
         print(e)
         return {"resultado":"No se pudieron obtener las imagenes", "status":500}, 500
@@ -29,10 +29,10 @@ def obtener_imagenes_tag(tag):
         # RECORRER LOS RESULTADOS DE LAS IMAGENES, GENERANDO UNA LISTA DE IMAGENES PARA BRINDAR RESPUESTA
         lista_imagenes_tag = []
         for imagen in imagenes_tag:
-            datos_imagen = {'id':imagen.id, 'usuario':imagen.repositorio.usuario.usuario, 'ruta_imagen_perfil': imagen.repositorio.usuario.ruta_imagen_perfil, 'id_repositorio':imagen.id_repositorio, 'nombre_repositorio':imagen.repositorio.nombre, 'descripcion':imagen.descripcion, 'tags':imagen.tags ,'fecha_creacion':imagen.fecha_creacion.strftime("%d/%m/%Y"), 'ruta_imagen':imagen.ruta_imagen}
+            datos_imagen = {'id':imagen.id, 'id_usuario':imagen.repositorio.usuario.id, 'usuario':imagen.repositorio.usuario.usuario, 'ruta_imagen_perfil': imagen.repositorio.usuario.ruta_imagen_perfil, 'id_repositorio':imagen.id_repositorio, 'nombre_repositorio':imagen.repositorio.nombre, 'descripcion':imagen.descripcion, 'tags':imagen.tags ,'fecha_creacion':imagen.fecha_creacion.strftime("%d/%m/%Y"), 'ruta_imagen':imagen.ruta_imagen}
             lista_imagenes_tag.append(datos_imagen)
 
-        return {"imagenes_tag":lista_imagenes_tag, "status":200}, 200
+        return {"id_usuario": session['id'], "imagenes_tag":lista_imagenes_tag, "status":200}, 200
     except Exception as e:
         print(e)
         return {"resultado":"No se pudieron obtener las imagenes", "status":500}, 500

@@ -33,11 +33,10 @@ const realizar_busqueda = (e) => {
         //REALIZAR LA PETICION DE LAS IMAGENES CON EL TAG A BUSCAR
         fetch_wrapper.get('imagen/'+tag)
         .then(data => {
-            console.log(data);        
             //OCULTAR EL SPINNER DE CARGA
             document.getElementById("carga-imagenes-dashboard").className = "d-none";
             //DIBUJAR LAS PUBLICACIONES DE LAS IMAGENES QUE COINCIDAN CON EL TAG DE LA BUSQUEDA
-            dibujar_imagenes_publicaciones(data.imagenes_tag, "Imagenes con el tag: " + tag);
+            dibujar_imagenes_publicaciones(data.id_usuario, data.imagenes_tag, "Imagenes con el tag: " + tag);
         })
 
         //FUNCIONALIDAD REFRESCAR IMAGENES EN BUSQUEDA POR TAG

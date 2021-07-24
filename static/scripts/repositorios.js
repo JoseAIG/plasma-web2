@@ -124,6 +124,8 @@ export function dibujar_contenido_repositorio(id, tercero) {
     descripcion_visualizar_repositorio.innerText = "";
     //MOSTRAR SPINNER DE CARGA
     contenedor_imagenes_visualizar_repositorio.innerHTML = '<div class="spinner-border" role="status"></div>';
+    //OCULTAR EL BOTON NUEVA IMAGEN
+    document.getElementById("boton-nueva-imagen").style.display = "none";
 
     //SOLICITAR LOS DATOS DEL REPOSITORIO Y DIBUJAR LA INFORMACION
     fetch_wrapper.get('repositorio/'+id).then(data => {
@@ -192,6 +194,13 @@ export function dibujar_contenido_repositorio(id, tercero) {
                     a.addEventListener('click', () => {
                         establecer_contenido_editar_imagen(imagen);
                     })
+
+                    //MOSTRAR EL BOTON NUEVA IMAGEN
+                    let button = document.getElementById("boton-nueva-imagen");
+                    button.style.display = "block";
+                    button.onclick = () => {
+                        establecer_datos_crear_imagen();
+                    }
                 }
                 div_card.appendChild(div_footer);
 
@@ -206,7 +215,7 @@ export function dibujar_contenido_repositorio(id, tercero) {
                 h4.className = 'text-center mx-auto mt-5 w-100';
                 h4.innerText = 'Parece que aun no tienes imagenes en este repositorio... ¡Sube alguna!';
                 contenedor_imagenes_visualizar_repositorio.appendChild(h4);
-                //BOTON PARA CREAR UN NUEVO REPOSITORIO
+                //BOTON PARA CREAR UNA NUEVA IMAGEN
                 let button = document.createElement('button');
                 button.className = "boton-acento mx-auto w-auto";
                 button.innerText = "Nueva imagen";

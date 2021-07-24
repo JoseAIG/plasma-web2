@@ -6,16 +6,22 @@
 {% endblock %}
 
 {% block contenido %} 
+    <!-- PORCION QUE CONTIENE LA INFORMACION DEL USUARIO -->
     <div id="contenedor-datos-usuario" class="text-center p-2 mb-3">
         <img id="imagen-perfil-usuario" src="../static/assets/icons/usuario.svg" onerror="this.src='../static/assets/icons/usuario.svg'"  style="width: 150px; height: 150px;" class="icono-perfil">
         <h3 id="nombre-usuario"></h3>
         <h5 id="correo-usuario"></h5>
         <h5 id="fecha-registro"></h5>
     </div>
+    <!-- TEXTO DE INFORMACION -->
     <h3 id="informacion-repositorios-perfil" class="text-center">Repositorios</h3>
     <hr>
+    <!-- SPINNER DE CARGA -->
     <div id="carga-repositorios-perfil" class="d-flex justify-content-center">
         <div class="spinner-border" role="status"></div>
     </div>
+    <!-- CONTENEDOR DE TARJETAS DE LOS REPOSITORIOS -->
     <div id="contenedor-tarjetas-repositorios" class="row row-cols-1 row-cols-md-3 g-4"></div>
+    <!-- BOTON NUEVO REPOSITORIO -->
+    <button id="boton-nuevo-repositorio" class="boton-acento mx-auto mt-3" style="display: none;" data-bs-toggle="modal" data-bs-target="#modal-crear-repositorio"><img src="/static/assets/icons/nuevo-repositorio-2.svg"> Nuevo repositorio</button>
 {% endblock %}

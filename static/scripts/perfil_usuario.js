@@ -108,6 +108,8 @@ function dibujar_tarjetas_repositorios(repositorios, id_usuario, id_usuario_logu
             if(id_usuario == id_usuario_logueado){
                 //MOSTRAR INFORMACION
                 informacion_repositorios_perfil.innerText = "Mis repositorios";
+                //MOSTRAR BOTON NUEVO REPOSITORIO
+                document.getElementById("boton-nuevo-repositorio").style.display = "block";
                 //ESTABLECER BOTON EDITAR REPOSITORIO
                 let button = document.createElement('button');
                 button.innerText = "Editar";
@@ -141,6 +143,8 @@ function dibujar_tarjetas_repositorios(repositorios, id_usuario, id_usuario_logu
     }else{
         //COMPROBAR SI EL USUARIO LOGUEADO ES EL PROPIETARIO DEL PERFIL DEL USUARIO AL QUE ESTA ACCEDIENDO PARA BRINDARLE PA POSIBILIDAD DE CREAR UN NUEVO REPOSITORIO
         if(id_usuario == id_usuario_logueado){
+            //MOSTRAR INFORMACION
+            informacion_repositorios_perfil.innerText = "Mis repositorios";
             //MENSAJE DE NO HAY REPOSITORIOS
             let h4 = document.createElement('h4');
             h4.className = 'text-center mx-auto mt-5 w-100';
@@ -149,7 +153,7 @@ function dibujar_tarjetas_repositorios(repositorios, id_usuario, id_usuario_logu
             //BOTON PARA CREAR UN NUEVO REPOSITORIO
             let button = document.createElement('button');
             button.className = "boton-acento mx-auto w-auto";
-            button.innerText = "Nuevo repositorio";
+            button.innerHTML = '<img src="/static/assets/icons/nuevo-repositorio-2.svg"> Nuevo repositorio';
             button.setAttribute("data-bs-toggle","modal");
             button.setAttribute("data-bs-target","#modal-crear-repositorio");
             contenedor_tarjetas_repositorios.appendChild(button);

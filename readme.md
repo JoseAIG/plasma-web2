@@ -51,6 +51,7 @@ Desarrollado por: José Inciarte C.I. 27.696.083
  
 - Vista personalizada Error 404: Recurso no encontrado.
 - Interfáz responsiva, adaptable a pantallas de distintas resoluciones (Computadores, tabletas y smartphones).
+- Mensajes de informacion de estado de operaciones.
 
 ---
 
